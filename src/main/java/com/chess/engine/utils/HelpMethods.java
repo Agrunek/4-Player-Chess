@@ -76,11 +76,10 @@ public class HelpMethods {
     public static class Initialization {
 
         public static void initTiles(Tile[][] tiles) {
-
             for (int y = 0; y < Board.HEIGHT; y++) {
                 for (int x = 0; x < Board.WIDTH; x++) {
                     if ((y > 2 && y < Board.HEIGHT - 3) || (x > 2 && x < Board.WIDTH - 3)) {
-                        tiles[y][x] = new Tile();
+                        tiles[y][x] = new Tile(x, y);
                     }
                 }
             }
