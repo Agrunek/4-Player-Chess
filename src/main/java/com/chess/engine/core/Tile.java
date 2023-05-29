@@ -5,7 +5,6 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
 
 public class Tile extends Group {
