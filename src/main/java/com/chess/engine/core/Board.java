@@ -25,7 +25,6 @@ public class Board extends Group {
 
         initTiles(tiles);
         setBoard();
-
         initPieces(this);
     }
 

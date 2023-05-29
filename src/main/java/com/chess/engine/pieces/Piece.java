@@ -3,10 +3,14 @@ package com.chess.engine.pieces;
 import com.chess.engine.core.Board;
 import com.chess.engine.utils.IllegalMoveException;
 import com.chess.engine.utils.Point;
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import static com.chess.engine.utils.Constants.Sizes.*;
 import static com.chess.engine.utils.HelpMethods.Validation.checkValidate;
 
-public abstract class Piece {
+public abstract class Piece extends Group {
 
     protected final PieceType type;
     protected final PieceColor color;
@@ -14,10 +18,16 @@ public abstract class Piece {
 
     private boolean firstMove = true;
 
+    private final ImageView pieceTexture;
+
     Piece(PieceType type, PieceColor color, Point point) {
+
         this.type = type;
         this.color = color;
         this.point = point;
+
+        pieceTexture = new ImageView(new Image("file:src/main/java/com/chess/gui/" + color.toString().charAt(0) + "_" + type.toString() + ".png", TILE_SIZE, TILE_SIZE, true, false));
+        getChildren().add(pieceTexture);
     }
 
     public abstract boolean validate(Board board, int x, int y);

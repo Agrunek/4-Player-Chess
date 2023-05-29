@@ -1,25 +1,27 @@
 package com.chess.engine.core;
 
 import com.chess.engine.pieces.Piece;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
 
-public class Tile extends Rectangle {
+public class Tile extends Group {
 
     private Piece piece;
 
+    private final ImageView tileBackground;
+
     public Tile(int x, int y) {
-        setWidth(TILE_SIZE);
-        setHeight(TILE_SIZE);
         relocate(x * TILE_SIZE, y * TILE_SIZE);
         if ((x + y) % 2 == 0) {
-            setFill(Color.valueOf(BOARD_COLOR));
+            tileBackground = new ImageView(new Image("file:src/main/java/com/chess/gui/tile_red.png", TILE_SIZE, TILE_SIZE, true, false));
         } else {
-            setFill(Color.WHITE);
+            tileBackground = new ImageView(new Image("file:src/main/java/com/chess/gui/tile_white.png", TILE_SIZE, TILE_SIZE, true, false));
         }
+        getChildren().add(tileBackground);
     }
 
     public boolean hasPiece() {
@@ -32,5 +34,6 @@ public class Tile extends Rectangle {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+        getChildren().add(piece);
     }
 }

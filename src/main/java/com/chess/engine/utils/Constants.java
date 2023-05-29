@@ -8,7 +8,7 @@ public class Constants {
     }
 
     public static class Sizes {
-        public static final int TILE_SIZE = 50;
+        public static final double TILE_SIZE = 50.0;
     }
 
 }
