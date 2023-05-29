@@ -26,7 +26,7 @@ public abstract class Piece extends Group {
         this.color = color;
         this.point = point;
 
-        pieceTexture = new ImageView(new Image("file:src/main/java/com/chess/gui/" + color.toString().charAt(0) + "_" + type.toString() + ".png", TILE_SIZE, TILE_SIZE, true, false));
+        pieceTexture = new ImageView(new Image("file:src/main/java/com/chess/gui/" + color.toString().charAt(0) + "_" + type.toString() + ".png", FIGURE_SIZE, FIGURE_SIZE, true, false));
         getChildren().add(pieceTexture);
     }
 

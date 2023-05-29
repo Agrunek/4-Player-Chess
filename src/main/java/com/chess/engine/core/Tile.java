@@ -4,10 +4,11 @@ import com.chess.engine.pieces.Piece;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 
 import static com.chess.engine.utils.Constants.Sizes.*;
 
-public class Tile extends Group {
+public class Tile extends StackPane {
 
     private Piece piece;
 

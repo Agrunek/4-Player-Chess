@@ -7,7 +7,9 @@ public class Constants {
     }
 
     public static class Sizes {
-        public static final double TILE_SIZE = 50.0;
+        public static final double TILE_SIZE = 70.0;
+        public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
+
     }
 
 }
