@@ -22,6 +22,7 @@ public class Chess extends Application {
         primaryStage.setTitle("4p Chess");
         primaryStage.setMinWidth(TILE_SIZE*Board.WIDTH);
         primaryStage.setMinHeight(TILE_SIZE*Board.HEIGHT);
+        primaryStage.getIcons().add(new Image("file:src/main/java/com/chess/gui/r_pawn.png"));
         primaryStage.show();
     }
 
