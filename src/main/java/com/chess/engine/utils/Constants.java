@@ -1,5 +1,8 @@
 package com.chess.engine.utils;
 
+import com.chess.engine.core.Board;
+import javafx.stage.Screen;
+
 public class Constants {
 
     public static class Colors {
@@ -7,7 +10,10 @@ public class Constants {
     }
 
     public static class Sizes {
-        public static final double TILE_SIZE = 70.0;
+        public static final double MONITOR_HEIGHT = Screen.getPrimary().getBounds().getHeight();
+        public static final double MONITOR_WIDTH = Screen.getPrimary().getBounds().getWidth();
+        public static final double TILE_SIZE = MONITOR_HEIGHT/ (Board.HEIGHT+1);
+
         public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
 
     }
