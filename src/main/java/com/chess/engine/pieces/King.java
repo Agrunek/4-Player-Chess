@@ -1,16 +1,13 @@
 package com.chess.engine.pieces;
 
 import com.chess.engine.core.Board;
+import com.chess.engine.utils.IllegalMoveException;
 import com.chess.engine.utils.Point;
 
 import java.util.List;
 
 import static com.chess.engine.utils.HelpMethods.Validation.defaultValidate;
 import static com.chess.engine.utils.HelpMethods.Validation.checkValidate;
-
-/**
- * TODO: Castling...
- */
 
 public class King extends Piece {
 
@@ -58,5 +55,43 @@ public class King extends Piece {
 
     private boolean canMove(Board board, List<Piece> pieces, int x, int y) {
         return pieces.stream().filter(e -> e.validate(board, x, y)).anyMatch(e -> checkValidate(board, e, x, y));
+    }
+
+    public void castle(Board board, int x, int y) throws IllegalMoveException {
+
+        if (!validateCastle(board, x, y)) {
+            throw new IllegalMoveException();
+        }
+
+        int xDiff = x - point.getX();
+        int yDiff = y - point.getY();
+
+        Piece rook = board.getTile(x, y).getPiece();
+
+        board.getTile(point.getX(), point.getY()).setPiece(null);
+        board.getTile(rook.point.getX(), rook.point.getY()).setPiece(null);
+
+        switch (color) {
+            case RED, YELLOW -> {
+                point.setX(point.getX() + ((xDiff > 0) ? 2 : -2));
+                rook.point.setX(point.getX() + ((xDiff > 0) ? -1 : 1));
+            }
+            case BLUE, GREEN -> {
+                point.setY(point.getY() + ((yDiff > 0) ? 2 : -2));
+                rook.point.setY(point.getY() + ((yDiff > 0) ? -1 : 1));
+            }
+        }
+
+        board.getTile(point.getX(), point.getY()).setPiece(this);
+        board.getTile(rook.point.getX(), rook.point.getY()).setPiece(rook);
+
+        useFirstMove();
+        rook.useFirstMove();
+
+        board.getKings().values().forEach(e -> e.updateInCheck(board));
+    }
+
+    private boolean validateCastle(Board board, int x, int y) {
+        return true;
     }
 }

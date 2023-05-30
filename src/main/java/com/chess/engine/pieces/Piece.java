@@ -51,7 +51,7 @@ public abstract class Piece extends Group {
         point.setX(x);
         point.setY(y);
 
-        firstMove = false;
+        useFirstMove();
 
         board.getKings().values().forEach(e -> e.updateInCheck(board));
 
@@ -78,5 +78,9 @@ public abstract class Piece extends Group {
 
     public boolean isFirstMove() {
         return firstMove;
+    }
+
+    public void useFirstMove() {
+        firstMove = false;
     }
 }
