@@ -20,8 +20,8 @@ public class Chess extends Application {
         root.getChildren().add(board);
         primaryStage.setScene(new Scene(root, Color.valueOf(BACKGROUND_COLOR)));
         primaryStage.setTitle("4p Chess");
-        primaryStage.setMinWidth(TILE_SIZE*Board.WIDTH);
-        primaryStage.setMinHeight(TILE_SIZE*Board.HEIGHT);
+        primaryStage.setMinWidth(TILE_SIZE * Board.WIDTH);
+        primaryStage.setMinHeight(TILE_SIZE * Board.HEIGHT);
         primaryStage.getIcons().add(new Image("file:src/main/java/com/chess/gui/r_pawn.png"));
         primaryStage.show();
     }
