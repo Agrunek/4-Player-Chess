@@ -5,5 +5,10 @@ public enum PieceColor {
     RED,
     BLUE,
     YELLOW,
-    GREEN
+    GREEN;
+
+    @Override
+    public String toString() {
+        return this.name().toLowerCase();
+    }
 }
