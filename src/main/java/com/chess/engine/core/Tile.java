@@ -1,7 +1,6 @@
 package com.chess.engine.core;
 
 import com.chess.engine.pieces.Piece;
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
