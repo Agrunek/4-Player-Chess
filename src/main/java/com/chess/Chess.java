@@ -24,18 +24,18 @@ public class Chess extends Application {
         primaryStage.setScene(scene);
 
         primaryStage.setTitle("4p Chess");
-        primaryStage.setMinWidth(TILE_SIZE*Board.WIDTH);
-        primaryStage.setMinHeight(TILE_SIZE*Board.HEIGHT);
+        primaryStage.setMinWidth(TILE_SIZE * Board.WIDTH);
+        primaryStage.setMinHeight(TILE_SIZE * Board.HEIGHT);
         primaryStage.getIcons().add(new Image("file:src/main/java/com/chess/gui/r_pawn.png"));
 
-        primaryStage.setFullScreen(true);
-        scene.setOnKeyPressed((e)->keyHandler(e,primaryStage));
+        primaryStage.setFullScreen(false);
+        scene.setOnKeyPressed((e) -> keyHandler(e, primaryStage));
 
         primaryStage.show();
     }
 
     private void keyHandler(KeyEvent e, Stage primaryStage) {
-        switch (e.getCode()){
+        switch (e.getCode()) {
             case F -> changeFullscreen(primaryStage);
             case Q -> System.exit(0);
         }
@@ -46,7 +46,7 @@ public class Chess extends Application {
     }
 
 
-    public void changeFullscreen(Stage primaryStage){
+    public void changeFullscreen(Stage primaryStage) {
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 }
