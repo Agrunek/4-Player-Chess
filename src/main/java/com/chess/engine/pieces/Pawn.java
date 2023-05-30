@@ -35,6 +35,9 @@ public class Pawn extends Piece {
                 case YELLOW -> isPromotionYellow(board, x, y);
                 case GREEN -> isPromotionGreen(board, x, y);
             };
+            if(isPromotion) {
+                this.setPromotion(true);
+            }
         }
         return isCorrectMove;
     }
@@ -118,18 +121,18 @@ public class Pawn extends Piece {
     }
 
     private boolean isPromotionRed(Board board, int x, int y) {
-        return point.getY() == 6;
+        return y == 6;
     }
 
     private boolean isPromotionBlue(Board board, int x, int y) {
-        return point.getX() == 7;
+        return x == 7;
     }
 
     private boolean isPromotionYellow(Board board, int x, int y) {
-        return point.getY() == 7;
+        return y == 7;
     }
 
     private boolean isPromotionGreen(Board board, int x, int y) {
-        return point.getX() == 6;
+        return x == 6;
     }
 }
