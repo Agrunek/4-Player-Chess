@@ -7,6 +7,7 @@ import com.chess.engine.utils.Point;
 import java.util.List;
 
 import static com.chess.engine.utils.HelpMethods.Validation.defaultValidate;
+import static com.chess.engine.utils.HelpMethods.Validation.interruptValidate;
 import static com.chess.engine.utils.HelpMethods.Validation.checkValidate;
 
 public class King extends Piece {
@@ -92,6 +93,36 @@ public class King extends Piece {
     }
 
     private boolean validateCastle(Board board, int x, int y) {
-        return true;
+
+        if (!board.getTile(x, y).hasPiece()) {
+            return false;
+        }
+
+        if (board.getTile(x, y).getPiece().getType() != PieceType.ROOK) {
+            return false;
+        }
+
+        if (inCheck || !isFirstMove() || !board.getTile(x, y).getPiece().isFirstMove()) {
+            return false;
+        }
+
+        int xDiff = x - point.getX();
+        int yDiff = y - point.getY();
+
+        if (xDiff != 0 && yDiff != 0) {
+            return false;
+        }
+
+        int checkX1 = (xDiff == 0) ? x : point.getX() + ((xDiff > 0) ? 1 : -1);
+        int checkX2 = (xDiff == 0) ? x : point.getX() + ((xDiff > 0) ? 2 : -2);
+        int checkY1 = (yDiff == 0) ? y : point.getY() + ((yDiff > 0) ? 1 : -1);
+        int checkY2 = (yDiff == 0) ? y : point.getY() + ((yDiff > 0) ? 2 : -2);
+
+        if (board.getPieces().stream().filter(e -> e.getColor() != color)
+                .anyMatch(e -> e.validate(board, checkX1, checkY1) || e.validate(board, checkX2, checkY2))) {
+            return false;
+        }
+
+        return interruptValidate(board, this, x, y);
     }
 }
