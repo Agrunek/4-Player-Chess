@@ -4,6 +4,7 @@ import com.chess.engine.pieces.Piece;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import static com.chess.engine.utils.Constants.Sizes.*;
@@ -34,6 +35,10 @@ public class Tile extends StackPane {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
-        getChildren().add(piece);
+        if (piece != null) {
+            getChildren().remove(piece);
+            getChildren().add(piece);
+        }
+
     }
 }
