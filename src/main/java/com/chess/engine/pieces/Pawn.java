@@ -22,12 +22,24 @@ public class Pawn extends Piece {
             return false;
         }
 
-        return switch (color) {
+        boolean isCorrectMove = switch (color) {
             case RED -> validateRed(board, x, y);
             case BLUE -> validateBlue(board, x, y);
             case YELLOW -> validateYellow(board, x, y);
             case GREEN -> validateGreen(board, x, y);
         };
+        if (isCorrectMove) {
+            boolean isPromotion = switch (color) {
+                case RED -> isPromotionRed(board, x, y);
+                case BLUE -> isPromotionBlue(board, x, y);
+                case YELLOW -> isPromotionYellow(board, x, y);
+                case GREEN -> isPromotionGreen(board, x, y);
+            };
+            if(isPromotion) {
+                this.setPromotion(true);
+            }
+        }
+        return isCorrectMove;
     }
 
     private boolean validateRed(Board board, int x, int y) {
@@ -45,7 +57,6 @@ public class Pawn extends Piece {
             if (board.getTile(x, y).hasPiece()) {
                 return board.getTile(x, y).getPiece().getColor() != color;
             }
-
         }
 
         return false;
@@ -54,7 +65,6 @@ public class Pawn extends Piece {
     private boolean validateBlue(Board board, int x, int y) {
 
         if (point.getY() == y && !board.getTile(point.getX() + 1, y).hasPiece()) {
-
             if (point.getX() + 1 == x) {
                 return true;
             } else {
@@ -66,7 +76,6 @@ public class Pawn extends Piece {
             if (board.getTile(x, y).hasPiece()) {
                 return board.getTile(x, y).getPiece().getColor() != color;
             }
-
         }
 
         return false;
@@ -75,7 +84,6 @@ public class Pawn extends Piece {
     private boolean validateYellow(Board board, int x, int y) {
 
         if (point.getX() == x && !board.getTile(x, point.getY() + 1).hasPiece()) {
-
             if (point.getY() + 1 == y) {
                 return true;
             } else {
@@ -87,9 +95,7 @@ public class Pawn extends Piece {
             if (board.getTile(x, y).hasPiece()) {
                 return board.getTile(x, y).getPiece().getColor() != color;
             }
-
         }
-
         return false;
     }
 
@@ -112,5 +118,21 @@ public class Pawn extends Piece {
         }
 
         return false;
+    }
+
+    private boolean isPromotionRed(Board board, int x, int y) {
+        return y == 6;
+    }
+
+    private boolean isPromotionBlue(Board board, int x, int y) {
+        return x == 7;
+    }
+
+    private boolean isPromotionYellow(Board board, int x, int y) {
+        return y == 7;
+    }
+
+    private boolean isPromotionGreen(Board board, int x, int y) {
+        return x == 6;
     }
 }
