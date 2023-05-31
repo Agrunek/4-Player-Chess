@@ -28,7 +28,7 @@ public class Chess extends Application {
         primaryStage.setMinHeight(TILE_SIZE * Board.HEIGHT);
         primaryStage.getIcons().add(new Image("file:src/main/java/com/chess/gui/r_pawn.png"));
 
-        primaryStage.setFullScreen(false);
+        primaryStage.setFullScreen(true);
         scene.setOnKeyPressed((e) -> keyHandler(e, primaryStage));
 
         primaryStage.show();

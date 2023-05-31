@@ -61,13 +61,26 @@ public class HelpMethods {
 
             board.getTile(x, y).setPiece(piece);
             board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(null);
+            board.getPieces().remove(temp);
+
+            int oldX = piece.getPoint().getX();
+            int oldY = piece.getPoint().getY();
+
+            piece.getPoint().setX(x);
+            piece.getPoint().setY(y);
 
             Point target = board.getKings().get(piece.getColor()).getPoint();
 
             boolean inCheck = board.getPieces().stream().anyMatch(e -> e.validate(board, target.getX(), target.getY()));
 
+            piece.getPoint().setX(oldX);
+            piece.getPoint().setY(oldY);
+
             board.getTile(x, y).setPiece(temp);
             board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(piece);
+            if (temp != null) {
+                board.getPieces().add(temp);
+            }
 
             return !inCheck;
         }

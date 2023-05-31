@@ -46,7 +46,6 @@ public abstract class Piece extends Group {
 
         Piece target = board.getTile(x, y).getPiece();
         board.getPieces().remove(target);
-        board.getTile(x, y).getChildren().remove(target);
 
         board.getTile(x, y).setPiece(this);
         board.getTile(point.getX(), point.getY()).setPiece(null);
@@ -95,7 +94,7 @@ public abstract class Piece extends Group {
 
     private void promotion(Board board, int x, int y) {
         board.getPieces().remove(this);
-        board.getTile(x, y).getChildren().remove(this);
+        board.getTile(x, y).setPiece(null);
 
         Piece piece = new Queen(color, x, y);
         board.getTile(x, y).setPiece(piece);
