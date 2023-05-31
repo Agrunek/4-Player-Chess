@@ -61,6 +61,7 @@ public class HelpMethods {
 
             board.getTile(x, y).setPiece(piece);
             board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(null);
+            board.getPieces().remove(temp);
 
             Point target = board.getKings().get(piece.getColor()).getPoint();
 
@@ -68,6 +69,9 @@ public class HelpMethods {
 
             board.getTile(x, y).setPiece(temp);
             board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(piece);
+            if (temp != null) {
+                board.getPieces().add(temp);
+            }
 
             return !inCheck;
         }
