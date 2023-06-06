@@ -58,9 +58,6 @@ public class HelpMethods {
         public static boolean checkValidate(Board board, Piece piece, int x, int y) {
 
             Piece temp = board.getTile(x, y).getPiece();
-
-            board.getTile(x, y).setPiece(piece);
-            board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(null);
             board.getPieces().remove(temp);
 
             int oldX = piece.getPoint().getX();
@@ -68,6 +65,9 @@ public class HelpMethods {
 
             piece.getPoint().setX(x);
             piece.getPoint().setY(y);
+
+            board.getTile(x, y).setPiece(piece);
+            board.getTile(oldX, oldY).setPiece(null);
 
             Point target = board.getKings().get(piece.getColor()).getPoint();
 
@@ -77,7 +77,8 @@ public class HelpMethods {
             piece.getPoint().setY(oldY);
 
             board.getTile(x, y).setPiece(temp);
-            board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(piece);
+            board.getTile(oldX, oldY).setPiece(piece);
+
             if (temp != null) {
                 board.getPieces().add(temp);
             }
@@ -99,7 +100,6 @@ public class HelpMethods {
         }
 
         public static void initPieces(Board board) {
-
             initRedPieces(board);
             initBluePieces(board);
             initYellowPieces(board);
@@ -190,7 +190,6 @@ public class HelpMethods {
             };
 
             board.getPieces().add(piece);
-
             board.getTile(x, y).setPiece(piece);
         }
     }
