@@ -17,8 +17,7 @@ public abstract class Piece extends Group {
     protected final Point point;
 
     private boolean firstMove = true;
-
-    private boolean isPromotion = false;
+    private boolean transmutation = false;
 
     private final ImageView pieceTexture;
 
@@ -55,6 +54,11 @@ public abstract class Piece extends Group {
 
         useFirstMove();
 
+        if (transmutation) {
+            promotion(board, x, y);
+            transmutation = false;
+        }
+
         board.getKings().values().forEach(e -> e.updateInCheck(board));
 
         board.getKings().values().stream().filter(e -> !e.anyMovesLeft(board)).forEach(e -> {
@@ -62,8 +66,6 @@ public abstract class Piece extends Group {
                     .forEach(f -> board.getTile(f.getPoint().getX(), f.getPoint().getY()).setPiece(null));
             board.getPieces().removeIf(f -> f.getColor() == e.getColor());
         });
-
-        if (isPromotion) promotion(board, x, y);
 
         return target;
     }
@@ -87,14 +89,16 @@ public abstract class Piece extends Group {
     public void useFirstMove() {
         firstMove = false;
     }
-      
-    public void setPromotion(boolean promotion) {
-        isPromotion = promotion;
+
+    public void usePromotion() {
+        transmutation = true;
     }
 
     private void promotion(Board board, int x, int y) {
         board.getPieces().remove(this);
         board.getTile(x, y).setPiece(null);
+
+        /* TODO: Create piece selector */
 
         Piece piece = new Queen(color, x, y);
         board.getTile(x, y).setPiece(piece);

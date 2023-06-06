@@ -5,10 +5,6 @@ import com.chess.engine.utils.Point;
 
 import static com.chess.engine.utils.HelpMethods.Validation.defaultValidate;
 
-/**
- * TODO: Add Promotion & En Passant! ;-;
- */
-
 public class Pawn extends Piece {
 
     public Pawn(PieceColor color, int x, int y) {
@@ -28,18 +24,23 @@ public class Pawn extends Piece {
             case YELLOW -> validateYellow(board, x, y);
             case GREEN -> validateGreen(board, x, y);
         };
-        if (isCorrectMove) {
-            boolean isPromotion = switch (color) {
-                case RED -> isPromotionRed(board, x, y);
-                case BLUE -> isPromotionBlue(board, x, y);
-                case YELLOW -> isPromotionYellow(board, x, y);
-                case GREEN -> isPromotionGreen(board, x, y);
-            };
-            if(isPromotion) {
-                this.setPromotion(true);
-            }
+
+        if (!isCorrectMove) {
+            return false;
         }
-        return isCorrectMove;
+
+        boolean isPromotion = switch (color) {
+            case RED -> isPromotionRed(board, x, y);
+            case BLUE -> isPromotionBlue(board, x, y);
+            case YELLOW -> isPromotionYellow(board, x, y);
+            case GREEN -> isPromotionGreen(board, x, y);
+        };
+
+        if (isPromotion) {
+            usePromotion();
+        }
+
+        return true;
     }
 
     private boolean validateRed(Board board, int x, int y) {
@@ -121,18 +122,18 @@ public class Pawn extends Piece {
     }
 
     private boolean isPromotionRed(Board board, int x, int y) {
-        return y == 6;
+        return y <= 6;
     }
 
     private boolean isPromotionBlue(Board board, int x, int y) {
-        return x == 7;
+        return x >= 7;
     }
 
     private boolean isPromotionYellow(Board board, int x, int y) {
-        return y == 7;
+        return y >= 7;
     }
 
     private boolean isPromotionGreen(Board board, int x, int y) {
-        return x == 6;
+        return x <= 6;
     }
 }
