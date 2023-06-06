@@ -19,4 +19,9 @@ public class Constants {
 
         public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
     }
+
+    public static class Textures {
+
+        public static final String ROOT_PATH = "file:src/main/java/com/chess/gui/";
+    }
 }
