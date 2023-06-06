@@ -30,10 +30,10 @@ public class Pawn extends Piece {
         }
 
         boolean isPromotion = switch (color) {
-            case RED -> isPromotionRed(board, x, y);
-            case BLUE -> isPromotionBlue(board, x, y);
-            case YELLOW -> isPromotionYellow(board, x, y);
-            case GREEN -> isPromotionGreen(board, x, y);
+            case RED -> y <= 6;
+            case BLUE -> x >= 7;
+            case YELLOW -> y >= 7;
+            case GREEN -> x <= 6;
         };
 
         if (isPromotion) {
@@ -119,21 +119,5 @@ public class Pawn extends Piece {
         }
 
         return false;
-    }
-
-    private boolean isPromotionRed(Board board, int x, int y) {
-        return y <= 6;
-    }
-
-    private boolean isPromotionBlue(Board board, int x, int y) {
-        return x >= 7;
-    }
-
-    private boolean isPromotionYellow(Board board, int x, int y) {
-        return y >= 7;
-    }
-
-    private boolean isPromotionGreen(Board board, int x, int y) {
-        return x <= 6;
     }
 }

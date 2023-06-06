@@ -6,13 +6,14 @@ import com.chess.engine.utils.Point;
 
 import java.util.List;
 
+import static com.chess.engine.utils.HelpMethods.Validation.checkValidate;
 import static com.chess.engine.utils.HelpMethods.Validation.defaultValidate;
 import static com.chess.engine.utils.HelpMethods.Validation.interruptValidate;
-import static com.chess.engine.utils.HelpMethods.Validation.checkValidate;
 
 public class King extends Piece {
 
     private boolean inCheck = false;
+    private boolean lost = false;
 
     public King(PieceColor color, int x, int y) {
         super(PieceType.KING, color, new Point(x, y));
@@ -35,13 +36,24 @@ public class King extends Piece {
         return inCheck;
     }
 
-    public void updateInCheck(Board board) {
-        inCheck = board.getPieces().stream().anyMatch(e -> e.validate(board, point.getX(), point.getY()));
+    public boolean hasLost() {
+        return lost;
     }
 
-    public boolean anyMovesLeft(Board board) {
+    public void updateStates(Board board) {
+
+        inCheck = board.getPieces().stream().anyMatch(e -> e.validate(board, point.getX(), point.getY()));
 
         List<Piece> pieces = board.getPieces().stream().filter(e -> e.getColor() == color).toList();
+
+        lost = !anyMovesLeft(board, pieces);
+
+        if (lost) {
+            clearPieces(board, pieces);
+        }
+    }
+
+    private boolean anyMovesLeft(Board board, List<Piece> pieces) {
 
         for (int y = 0; y < Board.HEIGHT; y++) {
             for (int x = 0; x < Board.WIDTH; x++) {
@@ -56,6 +68,11 @@ public class King extends Piece {
 
     private boolean canMove(Board board, List<Piece> pieces, int x, int y) {
         return pieces.stream().filter(e -> e.validate(board, x, y)).anyMatch(e -> checkValidate(board, e, x, y));
+    }
+
+    private void clearPieces(Board board, List<Piece> pieces) {
+        pieces.forEach(e -> board.getTile(e.getPoint().getX(), e.getPoint().getY()).setPiece(null));
+        board.getPieces().removeIf(e -> e.getColor() == color);
     }
 
     public void castle(Board board, int x, int y) throws IllegalMoveException {
@@ -89,7 +106,7 @@ public class King extends Piece {
         useFirstMove();
         rook.useFirstMove();
 
-        board.getKings().values().forEach(e -> e.updateInCheck(board));
+        board.getKings().values().forEach(e -> e.updateStates(board));
     }
 
     private boolean validateCastle(Board board, int x, int y) {

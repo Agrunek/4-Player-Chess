@@ -7,7 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import static com.chess.engine.utils.Constants.Sizes.*;
+import static com.chess.engine.utils.Constants.Sizes.FIGURE_SIZE;
 import static com.chess.engine.utils.HelpMethods.Validation.checkValidate;
 
 public abstract class Piece extends Group {
@@ -19,15 +19,13 @@ public abstract class Piece extends Group {
     private boolean firstMove = true;
     private boolean transmutation = false;
 
-    private final ImageView pieceTexture;
-
     Piece(PieceType type, PieceColor color, Point point) {
 
         this.type = type;
         this.color = color;
         this.point = point;
 
-        pieceTexture = new ImageView(new Image("file:src/main/java/com/chess/gui/" + color.toString().charAt(0) + "_" + type.toString() + ".png", FIGURE_SIZE, FIGURE_SIZE, true, false));
+        ImageView pieceTexture = new ImageView(new Image("file:src/main/java/com/chess/gui/" + color.toString().charAt(0) + "_" + type.toString() + ".png", FIGURE_SIZE, FIGURE_SIZE, true, false));
         getChildren().add(pieceTexture);
     }
 
@@ -59,13 +57,7 @@ public abstract class Piece extends Group {
             transmutation = false;
         }
 
-        board.getKings().values().forEach(e -> e.updateInCheck(board));
-
-        board.getKings().values().stream().filter(e -> !e.anyMovesLeft(board)).forEach(e -> {
-            board.getPieces().stream().filter(f -> f.getColor() == e.getColor())
-                    .forEach(f -> board.getTile(f.getPoint().getX(), f.getPoint().getY()).setPiece(null));
-            board.getPieces().removeIf(f -> f.getColor() == e.getColor());
-        });
+        board.getKings().values().forEach(e -> e.updateStates(board));
 
         return target;
     }
@@ -95,6 +87,7 @@ public abstract class Piece extends Group {
     }
 
     private void promotion(Board board, int x, int y) {
+
         board.getPieces().remove(this);
         board.getTile(x, y).setPiece(null);
 
