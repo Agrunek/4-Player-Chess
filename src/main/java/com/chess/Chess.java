@@ -1,6 +1,7 @@
 package com.chess;
 
 import com.chess.engine.core.Board;
+import com.chess.engine.core.Game;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -12,13 +13,13 @@ import javafx.stage.Stage;
 import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
 
-
 public class Chess extends Application {
+
     @Override
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
-        Board board = new Board();
-        root.getChildren().add(board);
+        Game game = new Game();
+        root.getChildren().add(game);
 
         Scene scene = new Scene(root, Color.valueOf(BACKGROUND_COLOR));
         primaryStage.setScene(scene);
