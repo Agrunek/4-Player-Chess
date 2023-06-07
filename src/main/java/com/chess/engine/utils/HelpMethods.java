@@ -3,9 +3,14 @@ package com.chess.engine.utils;
 import com.chess.engine.core.Board;
 import com.chess.engine.core.Tile;
 import com.chess.engine.pieces.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import static com.chess.engine.pieces.PieceColor.*;
 import static com.chess.engine.pieces.PieceType.*;
+import static com.chess.engine.utils.Constants.Sizes.FIGURE_SIZE;
+import static com.chess.engine.utils.Constants.Sizes.TILE_SIZE;
+import static com.chess.engine.utils.Constants.Textures.ROOT_PATH;
 
 public class HelpMethods {
 
@@ -58,9 +63,6 @@ public class HelpMethods {
         public static boolean checkValidate(Board board, Piece piece, int x, int y) {
 
             Piece temp = board.getTile(x, y).getPiece();
-
-            board.getTile(x, y).setPiece(piece);
-            board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(null);
             board.getPieces().remove(temp);
 
             int oldX = piece.getPoint().getX();
@@ -68,6 +70,9 @@ public class HelpMethods {
 
             piece.getPoint().setX(x);
             piece.getPoint().setY(y);
+
+            board.getTile(x, y).setPiece(piece);
+            board.getTile(oldX, oldY).setPiece(null);
 
             Point target = board.getKings().get(piece.getColor()).getPoint();
 
@@ -77,7 +82,8 @@ public class HelpMethods {
             piece.getPoint().setY(oldY);
 
             board.getTile(x, y).setPiece(temp);
-            board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(piece);
+            board.getTile(oldX, oldY).setPiece(piece);
+
             if (temp != null) {
                 board.getPieces().add(temp);
             }
@@ -99,7 +105,6 @@ public class HelpMethods {
         }
 
         public static void initPieces(Board board) {
-
             initRedPieces(board);
             initBluePieces(board);
             initYellowPieces(board);
@@ -190,8 +195,29 @@ public class HelpMethods {
             };
 
             board.getPieces().add(piece);
-
             board.getTile(x, y).setPiece(piece);
+        }
+    }
+
+    public static class ImageManagement {
+
+        public static ImageView getPieceImage(PieceColor color, PieceType type) {
+            String path = ROOT_PATH + getColorCode(color) + "_" + getTypeCode(type) + ".png";
+            return new ImageView(new Image(path, FIGURE_SIZE, FIGURE_SIZE, true, false));
+        }
+
+        public static ImageView getTileImage(int x, int y) {
+            String color = ((x + y) % 2 == 0) ? "red" : "white";
+            String path = ROOT_PATH + "tile_" + color + ".png";
+            return new ImageView(new Image(path, TILE_SIZE, TILE_SIZE, true, false));
+        }
+
+        private static char getColorCode(PieceColor color) {
+            return color.toString().charAt(0);
+        }
+
+        private static String getTypeCode(PieceType type) {
+            return type.toString();
         }
     }
 }
