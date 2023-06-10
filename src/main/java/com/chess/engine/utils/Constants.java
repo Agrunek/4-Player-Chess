@@ -6,7 +6,6 @@ import javafx.stage.Screen;
 public class Constants {
 
     public static class Colors {
-
         public static final String BACKGROUND_COLOR = "#1E1E1E";
     }
 
