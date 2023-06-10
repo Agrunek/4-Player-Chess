@@ -2,7 +2,9 @@ package com.chess.engine.core;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 import static com.chess.engine.utils.Constants.Sizes.*;
 
@@ -29,7 +31,8 @@ public class ScoreBoard extends StackPane {
         background.setFill(player.getColor().getColor());
 
         label.setText("SCORE:" + player.getScore());
-
+        label.setFont(new Font("Arial", SCOREBOARD_SIZE/5));
+        label.setTextFill(player.getColor().getTextColor());
         getChildren().add(background);
         getChildren().add(label);
     }
