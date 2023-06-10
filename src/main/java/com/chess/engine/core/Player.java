@@ -26,4 +26,8 @@ public class Player extends Group {
     public int getScore() {
         return score;
     }
+
+    public ScoreBoard getScoreBoard() {
+        return scoreBoard;
+    }
 }

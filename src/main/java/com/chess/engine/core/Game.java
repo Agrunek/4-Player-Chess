@@ -65,6 +65,7 @@ public class Game extends Group {
             if (popped != null) {
                 players[iterator].addScore(popped.getType().getValue());
             }
+            players[iterator].getScoreBoard().updateScore();
             System.out.println("Player " + players[iterator].getColor().toString() + " score is: " + players[iterator].getScore());
             updateIterator();
         } catch (IllegalMoveException e) {
