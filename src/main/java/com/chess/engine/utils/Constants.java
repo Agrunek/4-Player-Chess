@@ -18,6 +18,8 @@ public class Constants {
         public static final double TILE_SIZE = MONITOR_HEIGHT / (Board.HEIGHT + 1.5);
 
         public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
+
+        public static final double SCOREBOARD_SIZE = TILE_SIZE * 3 * 0.90;
     }
 
     public static class Textures {

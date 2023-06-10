@@ -23,6 +23,8 @@ public class Game extends Group {
         players[2] = new Player(YELLOW);
         players[3] = new Player(GREEN);
         getChildren().add(board);
+        getChildren().addAll(players[0], players[1], players[2], players[3]);
+
         setOnMouseClicked(this::mouseEvent);
     }
 
