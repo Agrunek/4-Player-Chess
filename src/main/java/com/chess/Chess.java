@@ -22,7 +22,7 @@ public class Chess extends Application {
     public void start(Stage primaryStage) {
         StackPane root = new StackPane();
         Game game = new Game();
-        HomePage homePage = new HomePage();
+        HomePage homePage = new HomePage(getHostServices());
         root.getChildren().addAll(game,homePage);
         root.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), null, null)));
 

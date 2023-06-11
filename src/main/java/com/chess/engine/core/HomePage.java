@@ -1,7 +1,10 @@
 package com.chess.engine.core;
 
+import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -21,8 +24,11 @@ public class HomePage extends StackPane {
     private final StackPane creditsButton = new StackPane();
     private final StackPane exitButton = new StackPane();
 
+    private final HostServices host;
+
     //
-    public HomePage() {
+    public HomePage(HostServices host) {
+        this.host = host;
         createTitle();
         createButtons();
 
@@ -55,9 +61,11 @@ public class HomePage extends StackPane {
             }
 
             case "CREDITS" -> {
+
                 button.setOnMouseEntered((e) -> buttonHover(e, bg));
                 button.setOnMouseExited((e) -> buttonExitHover(e, bg));
                 //hyperlinks
+                button.setOnMouseClicked(this::Credits);
             }
             case "EXIT" -> {
                 button.setOnMouseEntered((e) -> buttonHover(e, bg));
@@ -66,6 +74,10 @@ public class HomePage extends StackPane {
             }
         }
         button.getChildren().addAll(bg, label);
+    }
+
+    private void Credits(MouseEvent e) {
+        host.showDocument("https://github.com/Agrunek/4-Player-Chess");
     }
 
     private void buttonHover(MouseEvent e, Rectangle background) {
