@@ -18,6 +18,14 @@ public class Constants {
         public static final double TILE_SIZE = MONITOR_HEIGHT / (Board.HEIGHT + 1.5);
 
         public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
+
+
+        public static final double HOME_PAGE_HEIGHT = MONITOR_HEIGHT / 2;
+        public static final double HOME_PAGE_WIDTH = MONITOR_WIDTH / 2;
+
+        public static final double BUTTON_HEIGHT = HOME_PAGE_HEIGHT / 8;
+        public static final double BUTTON_WIDTH = HOME_PAGE_WIDTH / 4;
+
     }
 
     public static class Textures {
