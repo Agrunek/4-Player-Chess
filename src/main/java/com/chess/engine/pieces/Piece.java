@@ -51,7 +51,7 @@ public abstract class Piece extends Group {
         useFirstMove();
 
         if (transmutation) {
-            promotion(board, x, y);
+            promotion(board, x, y, PieceType.QUEEN);
             transmutation = false;
         }
 
@@ -84,14 +84,21 @@ public abstract class Piece extends Group {
         transmutation = true;
     }
 
-    private void promotion(Board board, int x, int y) {
+    private void promotion(Board board, int x, int y, PieceType type) {
 
         board.getPieces().remove(this);
         board.getTile(x, y).setPiece(null);
 
-        /* TODO: Create piece selector */
-
-        Piece piece = new Queen(color, x, y);
+        Piece piece = null;
+        if(type == PieceType.QUEEN) {
+            piece = new Queen(color, x, y);
+        } else if(type == PieceType.ROOK) {
+            piece = new Rook(color, x, y);
+        } else if(type == PieceType.BISHOP) {
+            piece = new Bishop(color, x, y);
+        } else if(type == PieceType.KNIGHT) {
+            piece = new Knight(color, x, y);
+        }
         board.getTile(x, y).setPiece(piece);
         board.getPieces().add(piece);
     }
