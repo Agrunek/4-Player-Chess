@@ -6,7 +6,6 @@ import javafx.stage.Screen;
 public class Constants {
 
     public static class Colors {
-
         public static final String BACKGROUND_COLOR = "#1E1E1E";
     }
 
@@ -18,6 +17,8 @@ public class Constants {
         public static final double TILE_SIZE = MONITOR_HEIGHT / (Board.HEIGHT + 1.5);
 
         public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
+
+        public static final double SCOREBOARD_SIZE = TILE_SIZE * 3 * 0.90;
     }
 
     public static class Textures {

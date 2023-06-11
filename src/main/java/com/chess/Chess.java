@@ -3,10 +3,11 @@ package com.chess;
 import com.chess.engine.core.Board;
 import com.chess.engine.core.Game;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -17,11 +18,14 @@ public class Chess extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        StackPane gameContent = new StackPane();
         StackPane root = new StackPane();
         Game game = new Game();
-        root.getChildren().add(game);
+        gameContent.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), CornerRadii.EMPTY, Insets.EMPTY)));
+        gameContent.getChildren().add(game);
+        root.getChildren().add(gameContent);
 
-        Scene scene = new Scene(root, Color.valueOf(BACKGROUND_COLOR));
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
         primaryStage.setTitle("4p Chess");
