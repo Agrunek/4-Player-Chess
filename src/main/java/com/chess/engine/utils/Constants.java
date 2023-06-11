@@ -32,4 +32,9 @@ public class Constants {
 
         public static final String ROOT_PATH = "file:src/main/java/com/chess/gui/";
     }
+
+    public static class Paths {
+
+        public static final String GITHUB_PATH = "https://github.com/Agrunek/4-Player-Chess";
+    }
 }

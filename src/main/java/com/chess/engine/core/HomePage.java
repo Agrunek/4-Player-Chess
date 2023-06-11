@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 import static com.chess.engine.utils.Constants.Sizes.*;
+import static com.chess.engine.utils.Constants.Paths.*;
 
 public class HomePage extends StackPane {
     private final Rectangle background = new Rectangle(HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, Color.GRAY);
@@ -78,7 +79,7 @@ public class HomePage extends StackPane {
     }
 
     private void credits(MouseEvent e) {
-        host.showDocument("https://github.com/Agrunek/4-Player-Chess");
+        host.showDocument(GITHUB_PATH);
     }
 
     private void buttonHover(MouseEvent e, Rectangle background) {
