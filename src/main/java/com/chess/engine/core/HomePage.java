@@ -25,6 +25,7 @@ public class HomePage extends StackPane {
     public HomePage() {
         createTitle();
         createButtons();
+
         menuContent.getChildren().addAll(title, buttons);
         menuContent.setSpacing(40);
         menuContent.setAlignment(Pos.CENTER);
@@ -47,9 +48,35 @@ public class HomePage extends StackPane {
         Rectangle bg = new Rectangle(BUTTON_WIDTH, BUTTON_HEIGHT, Color.PINK);
         bg.setStroke(Color.BLACK);
         bg.setStrokeWidth(2);
+        switch (text) {
+            case "PLAY" -> {
+                button.setOnMouseEntered((e) -> buttonHover(e, bg));
+                button.setOnMouseExited((e) -> buttonExitHover(e, bg));
+            }
+
+            case "CREDITS" -> {
+                button.setOnMouseEntered((e) -> buttonHover(e, bg));
+                button.setOnMouseExited((e) -> buttonExitHover(e, bg));
+                //hyperlinks
+            }
+            case "EXIT" -> {
+                button.setOnMouseEntered((e) -> buttonHover(e, bg));
+                button.setOnMouseExited((e) -> buttonExitHover(e, bg));
+                button.setOnMouseClicked((e) -> System.exit(0));
+            }
+        }
         button.getChildren().addAll(bg, label);
     }
 
+    private void buttonHover(MouseEvent e, Rectangle background) {
+        background.setStroke(Color.WHITE);
+        background.setStrokeWidth(2);
+    }
+
+    private void buttonExitHover(MouseEvent e, Rectangle background) {
+        background.setStroke(Color.BLACK);
+        background.setStrokeWidth(2);
+    }
 
     private void createTitle() {
         name.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
