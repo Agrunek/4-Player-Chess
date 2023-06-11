@@ -31,6 +31,9 @@ public class Constants {
     public static class Textures {
 
         public static final String ROOT_PATH = "file:src/main/java/com/chess/gui/";
+        public static final String FONT_PATH = "src/main/java/com/chess/gui/mcFont.otf";
+        public static final String BACKGROUND_TEXTURE_PATH = "file:src/main/java/com/chess/gui/wood.png";
+
     }
 
     public static class Paths {

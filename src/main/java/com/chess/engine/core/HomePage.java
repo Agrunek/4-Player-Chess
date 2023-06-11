@@ -4,17 +4,23 @@ import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
+import java.io.File;
+
 import static com.chess.engine.utils.Constants.Sizes.*;
 import static com.chess.engine.utils.Constants.Paths.*;
+import static com.chess.engine.utils.Constants.Textures.*;
+import static javafx.scene.text.Font.loadFont;
 
 public class HomePage extends StackPane {
-    private final Rectangle background = new Rectangle(HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, Color.GRAY);
+    private final ImageView background = new ImageView(new Image(BACKGROUND_TEXTURE_PATH,HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT,true,false));
     private final StackPane title = new StackPane();
     private final VBox menuContent = new VBox();
     private final HBox buttons = new HBox();
@@ -49,7 +55,8 @@ public class HomePage extends StackPane {
     private void setButton(StackPane button, String text) {
         Label label = new Label();
         label.setText(text);
-        label.setFont(new Font("Comic Sans MS", HOME_PAGE_HEIGHT / 14));
+        Font customFont = Font.loadFont(new File(FONT_PATH).toURI().toString(), 32);
+        label.setFont(customFont);
         Rectangle bg = new Rectangle(BUTTON_WIDTH, BUTTON_HEIGHT, Color.PINK);
         bg.setStroke(Color.BLACK);
         bg.setStrokeWidth(2);
@@ -94,7 +101,10 @@ public class HomePage extends StackPane {
 
     private void createTitle() {
         name.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-        name.setFont(new Font("Comic Sans MS", HOME_PAGE_HEIGHT / 10));
+
+        Font customFont = Font.loadFont(new File(FONT_PATH).toURI().toString(), HOME_PAGE_HEIGHT / 8);
+        name.setFont(customFont);
+
         title.getChildren().add(name);
     }
 }
