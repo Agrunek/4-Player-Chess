@@ -28,11 +28,10 @@ public class Chess extends Application {
         HomePage homePage = new HomePage(getHostServices());
 
         homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
-        root.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), null, null)));
 
         gameContent.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), CornerRadii.EMPTY, Insets.EMPTY)));
         gameContent.getChildren().add(game);
-        root.getChildren().addAll(gameContent,homePage);
+        root.getChildren().addAll(gameContent, homePage);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

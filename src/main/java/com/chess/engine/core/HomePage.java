@@ -90,7 +90,7 @@ public class HomePage extends StackPane {
         text.setTextFill(Color.valueOf(FONT_HOVER_COLOR));
     }
 
-    private void buttonExitHover(MouseEvent e, ImageView background,Label text) {
+    private void buttonExitHover(MouseEvent e, ImageView background, Label text) {
         background.setImage(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         text.setTextFill(Color.valueOf(FONT_COLOR));
     }
