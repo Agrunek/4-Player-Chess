@@ -4,12 +4,12 @@ import com.chess.engine.core.Board;
 import com.chess.engine.core.Game;
 import com.chess.engine.core.HomePage;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -22,15 +22,19 @@ public class Chess extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        StackPane gameContent = new StackPane();
         StackPane root = new StackPane();
         Game game = new Game();
         HomePage homePage = new HomePage(getHostServices());
 
-        root.getChildren().addAll(game, homePage);
         homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
         root.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), null, null)));
 
-        Scene scene = new Scene(root, Color.valueOf(BACKGROUND_COLOR));
+        gameContent.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), CornerRadii.EMPTY, Insets.EMPTY)));
+        gameContent.getChildren().add(game);
+        root.getChildren().addAll(gameContent,homePage);
+
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
 
         primaryStage.setTitle("4p Chess");

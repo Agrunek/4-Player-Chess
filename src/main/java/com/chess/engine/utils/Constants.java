@@ -6,7 +6,6 @@ import javafx.stage.Screen;
 public class Constants {
 
     public static class Colors {
-
         public static final String BACKGROUND_COLOR = "#1E1E1E";
         public static final String FONT_HOVER_COLOR = "#FFFF55";
         public static final String FONT_COLOR = "#FFFFFF";
@@ -28,6 +27,7 @@ public class Constants {
         public static final double BUTTON_HEIGHT = HOME_PAGE_HEIGHT / 8;
         public static final double BUTTON_WIDTH = HOME_PAGE_WIDTH / 4;
 
+        public static final double SCOREBOARD_SIZE = TILE_SIZE * 3 * 0.90;
     }
 
     public static class Textures {

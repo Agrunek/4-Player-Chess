@@ -23,6 +23,8 @@ public class Game extends Group {
         players[2] = new Player(YELLOW);
         players[3] = new Player(GREEN);
         getChildren().add(board);
+        getChildren().addAll(players[0], players[1], players[2], players[3]);
+
         setOnMouseClicked(this::mouseEvent);
     }
 
@@ -63,6 +65,7 @@ public class Game extends Group {
             if (popped != null) {
                 players[iterator].addScore(popped.getType().getValue());
             }
+            players[iterator].getScoreBoard().updateScore();
             System.out.println("Player " + players[iterator].getColor().toString() + " score is: " + players[iterator].getScore());
             updateIterator();
         } catch (IllegalMoveException e) {
