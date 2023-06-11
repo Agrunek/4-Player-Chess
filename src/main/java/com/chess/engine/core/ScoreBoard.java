@@ -1,13 +1,11 @@
 package com.chess.engine.core;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
-import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
 
 public class ScoreBoard extends StackPane {
