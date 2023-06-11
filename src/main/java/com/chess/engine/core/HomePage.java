@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 import java.io.File;
@@ -19,12 +17,9 @@ import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
 import static com.chess.engine.utils.Constants.Paths.*;
 import static com.chess.engine.utils.Constants.Textures.*;
-import static javafx.scene.text.Font.loadFont;
 
 public class HomePage extends StackPane {
-    private final ImageView background = new ImageView(new Image(BACKGROUND_TEXTURE_PATH, HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, true, false));
     private final StackPane title = new StackPane();
-    private final VBox menuContent = new VBox();
     private final HBox buttons = new HBox();
     private final Label name = new Label("4 PLAYER CHESS");
     private final StackPane playButton = new StackPane();
@@ -38,9 +33,11 @@ public class HomePage extends StackPane {
         createTitle();
         createButtons();
 
+        VBox menuContent = new VBox();
         menuContent.getChildren().addAll(title, buttons);
         menuContent.setSpacing(40);
         menuContent.setAlignment(Pos.CENTER);
+        ImageView background = new ImageView(new Image(BACKGROUND_TEXTURE_PATH, HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, true, false));
         getChildren().addAll(background, menuContent);
     }
 
