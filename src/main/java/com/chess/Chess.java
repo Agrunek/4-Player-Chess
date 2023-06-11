@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
 
-import javafx.scene.layout.*;
 
 public class Chess extends Application {
 

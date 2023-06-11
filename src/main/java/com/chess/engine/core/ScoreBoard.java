@@ -2,7 +2,6 @@ package com.chess.engine.core;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
@@ -14,10 +13,10 @@ import static com.chess.engine.utils.Constants.Textures.FONT_PATH;
 public class ScoreBoard extends StackPane {
     private final Player player;
     private final Label label = new Label();
-    private final Rectangle background = new Rectangle();
 
     public ScoreBoard(Player player) {
         this.player = player;
+        Rectangle background = new Rectangle();
         background.setWidth(SCOREBOARD_SIZE);
         background.setHeight(SCOREBOARD_SIZE);
 
