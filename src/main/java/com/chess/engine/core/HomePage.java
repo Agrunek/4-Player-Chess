@@ -1,10 +1,8 @@
 package com.chess.engine.core;
 
-import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -64,7 +62,6 @@ public class HomePage extends StackPane {
 
                 button.setOnMouseEntered((e) -> buttonHover(e, bg));
                 button.setOnMouseExited((e) -> buttonExitHover(e, bg));
-                //hyperlinks
                 button.setOnMouseClicked(this::Credits);
             }
             case "EXIT" -> {
