@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 
 import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
+
 import javafx.scene.layout.*;
 
 public class Chess extends Application {
@@ -23,7 +25,9 @@ public class Chess extends Application {
         StackPane root = new StackPane();
         Game game = new Game();
         HomePage homePage = new HomePage(getHostServices());
-        root.getChildren().addAll(game,homePage);
+
+        root.getChildren().addAll(game, homePage);
+        homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
         root.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), null, null)));
 
         Scene scene = new Scene(root, Color.valueOf(BACKGROUND_COLOR));
@@ -38,6 +42,10 @@ public class Chess extends Application {
         scene.setOnKeyPressed((e) -> keyHandler(e, primaryStage));
 
         primaryStage.show();
+    }
+
+    private void removeHomePage(MouseEvent mouseEvent, StackPane root, HomePage homePage) {
+        root.getChildren().remove(homePage);
     }
 
     private void keyHandler(KeyEvent e, Stage primaryStage) {

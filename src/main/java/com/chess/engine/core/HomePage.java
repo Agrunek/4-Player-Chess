@@ -62,7 +62,7 @@ public class HomePage extends StackPane {
 
                 button.setOnMouseEntered((e) -> buttonHover(e, bg));
                 button.setOnMouseExited((e) -> buttonExitHover(e, bg));
-                button.setOnMouseClicked(this::Credits);
+                button.setOnMouseClicked(this::credits);
             }
             case "EXIT" -> {
                 button.setOnMouseEntered((e) -> buttonHover(e, bg));
@@ -73,7 +73,11 @@ public class HomePage extends StackPane {
         button.getChildren().addAll(bg, label);
     }
 
-    private void Credits(MouseEvent e) {
+    public StackPane getPlayButton() {
+        return this.playButton;
+    }
+
+    private void credits(MouseEvent e) {
         host.showDocument("https://github.com/Agrunek/4-Player-Chess");
     }
 
