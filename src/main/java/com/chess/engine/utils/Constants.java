@@ -8,6 +8,8 @@ public class Constants {
     public static class Colors {
 
         public static final String BACKGROUND_COLOR = "#1E1E1E";
+        public static final String FONT_HOVER_COLOR = "#FFFF55";
+        public static final String FONT_COLOR = "#FFFFFF";
     }
 
     public static class Sizes {
@@ -33,6 +35,8 @@ public class Constants {
         public static final String ROOT_PATH = "file:src/main/java/com/chess/gui/";
         public static final String FONT_PATH = "src/main/java/com/chess/gui/mcFont.otf";
         public static final String BACKGROUND_TEXTURE_PATH = "file:src/main/java/com/chess/gui/wood.png";
+        public static final String BUTTON_TEXTURE_PATH = "file:src/main/java/com/chess/gui/button.png";
+        public static final String BUTTON_HOVER_TEXTURE_PATH = "file:src/main/java/com/chess/gui/buttonHover.png";
 
     }
 
