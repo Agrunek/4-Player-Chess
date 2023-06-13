@@ -2,6 +2,7 @@ package com.chess.engine.core;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
@@ -42,6 +43,15 @@ public class ScoreBoard extends StackPane {
 
     public void updateScore() {
         label.setText("SCORE:" + player.getScore());
+    }
+
+    public void highlightScore() {
+        background.setStroke(player.getColor().getHighlightColor());
+        background.setStrokeWidth(10);
+    }
+
+    public void noHighlightScore() {
+        background.setStroke(Color.TRANSPARENT);
     }
 }
 

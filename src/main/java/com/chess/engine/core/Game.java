@@ -67,7 +67,10 @@ public class Game extends Group {
             }
             players[iterator].getScoreBoard().updateScore();
             System.out.println("Player " + players[iterator].getColor().toString() + " score is: " + players[iterator].getScore());
+            players[iterator].getScoreBoard().noHighlightScore();
             updateIterator();
+            players[iterator].getScoreBoard().highlightScore();
+
         } catch (IllegalMoveException e) {
             System.out.println("ILLEGAL MOVE!");
         }
