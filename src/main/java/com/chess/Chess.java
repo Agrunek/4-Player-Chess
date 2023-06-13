@@ -2,17 +2,20 @@ package com.chess;
 
 import com.chess.engine.core.Board;
 import com.chess.engine.core.Game;
+import com.chess.engine.core.HomePage;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import static com.chess.engine.utils.Constants.Colors.*;
 import static com.chess.engine.utils.Constants.Sizes.*;
+
 
 public class Chess extends Application {
 
@@ -21,9 +24,13 @@ public class Chess extends Application {
         StackPane gameContent = new StackPane();
         StackPane root = new StackPane();
         Game game = new Game();
+        HomePage homePage = new HomePage(getHostServices());
+
+        homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
+
         gameContent.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), CornerRadii.EMPTY, Insets.EMPTY)));
         gameContent.getChildren().add(game);
-        root.getChildren().add(gameContent);
+        root.getChildren().addAll(gameContent, homePage);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -37,6 +44,10 @@ public class Chess extends Application {
         scene.setOnKeyPressed((e) -> keyHandler(e, primaryStage));
 
         primaryStage.show();
+    }
+
+    private void removeHomePage(MouseEvent mouseEvent, StackPane root, HomePage homePage) {
+        root.getChildren().remove(homePage);
     }
 
     private void keyHandler(KeyEvent e, Stage primaryStage) {
