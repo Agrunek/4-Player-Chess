@@ -54,12 +54,13 @@ public class Game extends Group {
         if (selected.getColor() != players[iterator].getColor()) {
             return;
         }
-
+        board.getTile(x, y).highlightTile();
         piece = selected;
     }
 
     private void movePiece(int x, int y) {
 
+        board.getTile(piece.getPoint().getX(),piece.getPoint().getY()).unhighlightTile();
         try {
             Piece popped = board.move(piece, x, y);
             if (popped != null) {

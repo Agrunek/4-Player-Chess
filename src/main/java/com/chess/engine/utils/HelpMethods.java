@@ -212,6 +212,13 @@ public class HelpMethods {
             return new ImageView(new Image(path, TILE_SIZE, TILE_SIZE, true, false));
         }
 
+        public static ImageView getTileImageHighilight(int x, int y) {
+            String color = ((x + y) % 2 == 0) ? "red" : "white";
+            String path = ROOT_PATH + "tile_" + color + "_highlight.png";
+            return new ImageView(new Image(path, TILE_SIZE, TILE_SIZE, true, false));
+        }
+
+
         private static char getColorCode(PieceColor color) {
             return color.toString().charAt(0);
         }
