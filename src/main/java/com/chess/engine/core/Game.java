@@ -25,6 +25,7 @@ public class Game extends Group {
         getChildren().add(board);
         getChildren().addAll(players[0], players[1], players[2], players[3]);
 
+
         setOnMouseClicked(this::mouseEvent);
     }
 
@@ -60,8 +61,8 @@ public class Game extends Group {
 
     private void movePiece(int x, int y) {
 
-        board.getTile(piece.getPoint().getX(),piece.getPoint().getY()).unhighlightTile();
         try {
+            board.getTile(piece.getPoint().getX(),piece.getPoint().getY()).unhighlightTile();
             Piece popped = board.move(piece, x, y);
             if (popped != null) {
                 players[iterator].addScore(popped.getType().getValue());
@@ -71,12 +72,12 @@ public class Game extends Group {
             players[iterator].getScoreBoard().noHighlightScore();
             updateIterator();
             players[iterator].getScoreBoard().highlightScore();
-
+            piece = null;
         } catch (IllegalMoveException e) {
             System.out.println("ILLEGAL MOVE!");
+            selectPiece(x,y);
         }
 
-        piece = null;
     }
 
     private void updateIterator() {

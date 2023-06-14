@@ -39,13 +39,11 @@ public class Tile extends StackPane {
         this.piece = piece;
     }
     public void highlightTile(){
-        System.out.println(getTileImageHighilight(piece.getPoint().getX(),piece.getPoint().getY()));
         getChildren().add(getTileImageHighilight(piece.getPoint().getX(),piece.getPoint().getY()));
         if(piece != null)setPiece(piece);
     }
 
     public void unhighlightTile(){
-        System.out.println(getTileImage(piece.getPoint().getX(),piece.getPoint().getY()));
         getChildren().add(getTileImage(piece.getPoint().getX(),piece.getPoint().getY()));
         if(piece != null)setPiece(piece);
 
