@@ -14,10 +14,11 @@ import static com.chess.engine.utils.Constants.Textures.FONT_PATH;
 public class ScoreBoard extends StackPane {
     private final Player player;
     private final Label label = new Label();
+    private final Rectangle background = new Rectangle();
 
     public ScoreBoard(Player player) {
         this.player = player;
-        Rectangle background = new Rectangle();
+
         background.setWidth(SCOREBOARD_SIZE);
         background.setHeight(SCOREBOARD_SIZE);
 
