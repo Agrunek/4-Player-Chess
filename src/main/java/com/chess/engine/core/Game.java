@@ -55,14 +55,15 @@ public class Game extends Group {
         if (selected.getColor() != players[iterator].getColor()) {
             return;
         }
-        board.getTile(x, y).highlightTile();
+        board.getTile(x, y).highlightTile(board, x, y);
         piece = selected;
     }
 
     private void movePiece(int x, int y) {
-
+        int oldx = piece.getPoint().getX();
+        int oldy = piece.getPoint().getY();
         try {
-            board.getTile(piece.getPoint().getX(),piece.getPoint().getY()).unhighlightTile();
+            board.getTile(oldx,oldy).unhighlightTile(board,oldx,oldy);
             Piece popped = board.move(piece, x, y);
             if (popped != null) {
                 players[iterator].addScore(popped.getType().getValue());
@@ -73,6 +74,7 @@ public class Game extends Group {
             updateIterator();
             players[iterator].getScoreBoard().highlightScore();
             piece = null;
+            board.getTile(oldx,oldy).unhighlightTile(board,oldx,oldy);
         } catch (IllegalMoveException e) {
             System.out.println("ILLEGAL MOVE!");
             selectPiece(x,y);
