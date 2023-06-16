@@ -2,7 +2,6 @@ package com.chess.engine.core;
 
 import com.chess.engine.pieces.King;
 import com.chess.engine.pieces.Piece;
-import com.chess.engine.pieces.PieceType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -43,13 +42,12 @@ public class Tile extends StackPane {
         this.piece = piece;
     }
     public void highlightTile(Board board, int x, int y){
-
-        if(board.getKings().containsValue(piece)) {
-            King king = board.getKings().values().stream().filter(k -> k.getPoint().equals(piece.getPoint())).findFirst().get();
-            if (king.isInCheck()) {
+        if(piece != null) {
+            King king = board.getKings().values().stream().filter(k -> k.getPoint().equals(piece.getPoint())).findFirst().orElse(null);
+            if (king != null && king.isInCheck()) {
                 System.out.println("king picked and checked");
                 getChildren().add(new ImageView(new Image(ROOT_PATH + "tile_check_highlight.png", TILE_SIZE, TILE_SIZE, true, false)));
-                if (piece != null) setPiece(piece);
+                setPiece(piece);
                 return;
             }
         }
@@ -59,12 +57,11 @@ public class Tile extends StackPane {
     }
 
     public void unhighlightTile(Board board, int x, int y){
-
-        if(board.getKings().containsValue(piece)) {
-            King king = board.getKings().values().stream().filter(k -> k.getPoint().equals(piece.getPoint())).findFirst().get();
-            if (king.isInCheck()) {
+        if(piece != null) {
+            King king = board.getKings().values().stream().filter(k -> k.getPoint().equals(piece.getPoint())).findFirst().orElse(null);
+            if (king != null && king.isInCheck()) {
                 getChildren().add(new ImageView(new Image(ROOT_PATH + "tile_check.png", TILE_SIZE, TILE_SIZE, true, false)));
-                if (piece != null) setPiece(piece);
+                setPiece(piece);
                 return;
             }
         }
