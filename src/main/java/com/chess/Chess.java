@@ -20,15 +20,17 @@ import static com.chess.engine.utils.Constants.Sizes.*;
 
 public class Chess extends Application {
 
+    private Game game = new Game();
+
     @Override
     public void start(Stage primaryStage) {
         StackPane gameContent = new StackPane();
         StackPane root = new StackPane();
-        Game game = new Game();
         HomePage homePage = new HomePage(getHostServices());
         EndingScreen endingScreen = new EndingScreen();
 
         homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
+        endingScreen.getPlayAgainButton().setOnMouseClicked((e) -> PlayAgain(e, root, homePage, endingScreen));
 
         gameContent.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), CornerRadii.EMPTY, Insets.EMPTY)));
         gameContent.getChildren().add(game);
@@ -46,6 +48,12 @@ public class Chess extends Application {
         scene.setOnKeyPressed((e) -> keyHandler(e, primaryStage));
 
         primaryStage.show();
+    }
+
+    private void PlayAgain(Object e, StackPane root, HomePage homePage, EndingScreen endingScreen) {
+        root.getChildren().remove(endingScreen);
+        root.getChildren().add(homePage);
+        game = new Game();
     }
 
     private void removeHomePage(MouseEvent mouseEvent, StackPane root, HomePage homePage) {

@@ -87,4 +87,7 @@ public class EndingScreen extends StackPane {
         text.setTextFill(Color.valueOf(FONT_COLOR));
     }
 
+    public StackPane getPlayAgainButton() {
+        return this.playAgainButton;
+    }
 }
