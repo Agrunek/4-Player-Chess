@@ -39,7 +39,7 @@ public class Game extends Group {
             selectPiece(x, y);
         } else {
             movePiece(x, y);
-            if(isGameOver()){
+            if (isGameOver()) {
                 this.winner = getWinner();
             }
         }
@@ -67,7 +67,7 @@ public class Game extends Group {
         int oldx = piece.getPoint().getX();
         int oldy = piece.getPoint().getY();
         try {
-            board.getTile(oldx,oldy).unhighlightTile(board,oldx,oldy);
+            board.getTile(oldx, oldy).unhighlightTile(board, oldx, oldy);
             Piece popped = board.move(piece, x, y);
             if (popped != null) {
                 players[iterator].addScore(popped.getType().getValue());
@@ -78,10 +78,10 @@ public class Game extends Group {
             updateIterator();
             players[iterator].getScoreBoard().highlightScore();
             piece = null;
-            board.getTile(oldx,oldy).unhighlightTile(board,oldx,oldy);
+            board.getTile(oldx, oldy).unhighlightTile(board, oldx, oldy);
         } catch (IllegalMoveException e) {
             System.out.println("ILLEGAL MOVE!");
-            selectPiece(x,y);
+            selectPiece(x, y);
         }
 
     }
@@ -92,7 +92,8 @@ public class Game extends Group {
             updateIterator();
         }
     }
-    boolean isGameOver() {
+
+    private boolean isGameOver() {
         int count = 0;
         for (Player player : players) {
             if (board.getKings().get(player.getColor()).hasLost()) {
@@ -101,7 +102,8 @@ public class Game extends Group {
         }
         return count >= 3;
     }
-    Player getWinner() {
+
+    private Player getWinner() {
         for (Player player : players) {
             if (!board.getKings().get(player.getColor()).hasLost()) {
                 System.out.println("Player " + player.getColor().toString() + " wins!");

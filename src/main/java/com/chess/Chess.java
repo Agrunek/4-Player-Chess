@@ -1,6 +1,7 @@
 package com.chess;
 
 import com.chess.engine.core.Board;
+import com.chess.engine.core.EndingScreen;
 import com.chess.engine.core.Game;
 import com.chess.engine.core.HomePage;
 import javafx.application.Application;
@@ -25,6 +26,7 @@ public class Chess extends Application {
         StackPane root = new StackPane();
         Game game = new Game();
         HomePage homePage = new HomePage(getHostServices());
+        EndingScreen endingScreen = new EndingScreen();
 
         homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
 
