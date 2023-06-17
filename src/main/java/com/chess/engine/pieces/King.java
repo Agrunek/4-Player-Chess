@@ -48,6 +48,12 @@ public class King extends Piece {
 
         lost = !anyMovesLeft(board, pieces);
 
+        if(inCheck && !lost){
+            board.getTile(getPoint().getX(),getPoint().getY()).checkTile();
+        }
+        if(!inCheck && !lost){
+            board.getTile(getPoint().getX(),getPoint().getY()).unhighlightTile(board, point.getX(), point.getY());
+        }
         if (lost) {
             clearPieces(board, pieces);
         }
