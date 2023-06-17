@@ -13,6 +13,7 @@ public class Game extends Group {
     private final Board board = new Board();
 
     private final Player[] players = new Player[4];
+    private Player winner = null;
     private int iterator = 0;
 
     private Piece piece = null;
@@ -39,7 +40,7 @@ public class Game extends Group {
         } else {
             movePiece(x, y);
             if(isGameOver()){
-                Player winner = getWinner();
+                this.winner = getWinner();
             }
         }
     }
@@ -103,7 +104,7 @@ public class Game extends Group {
     Player getWinner() {
         for (Player player : players) {
             if (!board.getKings().get(player.getColor()).hasLost()) {
-                System.out.println("someone did win");
+                System.out.println("Player " + player.getColor().toString() + " wins!");
                 return player;
             }
         }
