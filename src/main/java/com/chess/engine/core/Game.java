@@ -38,6 +38,9 @@ public class Game extends Group {
             selectPiece(x, y);
         } else {
             movePiece(x, y);
+            if(isGameOver()){
+                Player winner = getWinner();
+            }
         }
     }
 
@@ -87,5 +90,23 @@ public class Game extends Group {
         if (board.getKings().get(players[iterator].getColor()).hasLost()) {
             updateIterator();
         }
+    }
+    boolean isGameOver() {
+        int count = 0;
+        for (Player player : players) {
+            if (board.getKings().get(player.getColor()).hasLost()) {
+                count++;
+            }
+        }
+        return count >= 3;
+    }
+    Player getWinner() {
+        for (Player player : players) {
+            if (!board.getKings().get(player.getColor()).hasLost()) {
+                System.out.println("someone did win");
+                return player;
+            }
+        }
+        return null;
     }
 }
