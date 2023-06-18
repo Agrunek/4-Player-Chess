@@ -2,6 +2,8 @@ package com.chess.engine.core;
 
 import com.chess.engine.pieces.Piece;
 import com.chess.engine.utils.IllegalMoveException;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 
@@ -17,8 +19,10 @@ public class Game extends Group {
     private int iterator = 0;
 
     private Piece piece = null;
+    EventHandler<Event> onFinished;
 
-    public Game() {
+    public Game(EventHandler<Event> onFinished) {
+        this.onFinished = onFinished;
         players[0] = new Player(RED);
         players[1] = new Player(BLUE);
         players[2] = new Player(YELLOW);
@@ -41,6 +45,7 @@ public class Game extends Group {
             movePiece(x, y);
             if (isGameOver()) {
                 this.winner = getWinner();
+                onFinished.handle(null);
             }
         }
     }
@@ -103,7 +108,7 @@ public class Game extends Group {
         return count >= 3;
     }
 
-    private Player getWinner() {
+    public Player getWinner() {
         for (Player player : players) {
             if (!board.getKings().get(player.getColor()).hasLost()) {
                 System.out.println("Player " + player.getColor().toString() + " wins!");

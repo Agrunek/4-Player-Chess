@@ -20,12 +20,13 @@ import static com.chess.engine.utils.Constants.Textures.*;
 public class EndingScreen extends StackPane {
     private final StackPane title = new StackPane();
     private final HBox buttons = new HBox();
-    private final Label name = new Label("PLAYER 1 WINS");
+    private final Label name;
 
     private final StackPane playAgainButton = new StackPane();
     private final StackPane exitButton = new StackPane();
 
-    public EndingScreen() {
+    public EndingScreen(Player winner) {
+        name = new Label("Player " + winner.getColor().toString() + " wins!");
         createTitle();
         createButtons();
 

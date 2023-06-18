@@ -19,18 +19,19 @@ import static com.chess.engine.utils.Constants.Sizes.*;
 
 
 public class Chess extends Application {
-
-    private Game game = new Game();
+    private Game game;
+    private HomePage homePage;
+    private EndingScreen endingScreen;
+    StackPane root = new StackPane();
+    StackPane gameContent = new StackPane();
 
     @Override
     public void start(Stage primaryStage) {
-        StackPane gameContent = new StackPane();
-        StackPane root = new StackPane();
-        HomePage homePage = new HomePage(getHostServices());
-        EndingScreen endingScreen = new EndingScreen();
 
-        homePage.getPlayButton().setOnMouseClicked((e) -> removeHomePage(e, root, homePage));
-        endingScreen.getPlayAgainButton().setOnMouseClicked((e) -> PlayAgain(e, root, homePage, endingScreen));
+        homePage = new HomePage(getHostServices());
+        game = new Game(update -> onFinished());
+
+        homePage.getPlayButton().setOnMouseClicked(this::removeHomePage);
 
         gameContent.setBackground(new Background(new BackgroundFill(Color.valueOf(BACKGROUND_COLOR), CornerRadii.EMPTY, Insets.EMPTY)));
         gameContent.getChildren().add(game);
@@ -50,13 +51,16 @@ public class Chess extends Application {
         primaryStage.show();
     }
 
-    private void PlayAgain(Object e, StackPane root, HomePage homePage, EndingScreen endingScreen) {
+    private void playAgain(Object e) {
         root.getChildren().remove(endingScreen);
         root.getChildren().add(homePage);
-        game = new Game();
+        gameContent.getChildren().remove(game);
+        game = new Game(update -> onFinished());
+        gameContent.getChildren().add(game);
+
     }
 
-    private void removeHomePage(MouseEvent mouseEvent, StackPane root, HomePage homePage) {
+    private void removeHomePage(MouseEvent mouseEvent) {
         root.getChildren().remove(homePage);
     }
 
@@ -66,7 +70,11 @@ public class Chess extends Application {
             case Q -> System.exit(0);
         }
     }
-
+    private void onFinished() {
+        endingScreen = new EndingScreen(game.getWinner());
+        root.getChildren().add(endingScreen);
+        endingScreen.getPlayAgainButton().setOnMouseClicked(this::playAgain);
+    }
     public static void main(String[] args) {
         launch(args);
     }
