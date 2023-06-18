@@ -108,7 +108,7 @@ public class Game extends Group {
         return count >= 3;
     }
 
-    private Player getWinner() {
+    public Player getWinner() {
         for (Player player : players) {
             if (!board.getKings().get(player.getColor()).hasLost()) {
                 System.out.println("Player " + player.getColor().toString() + " wins!");

@@ -71,8 +71,7 @@ public class Chess extends Application {
         }
     }
     private void onFinished() {
-        System.out.println("working");
-        endingScreen = new EndingScreen();
+        endingScreen = new EndingScreen(game.getWinner());
         root.getChildren().add(endingScreen);
         endingScreen.getPlayAgainButton().setOnMouseClicked(this::playAgain);
     }
