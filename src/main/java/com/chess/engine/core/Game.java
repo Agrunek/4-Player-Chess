@@ -6,11 +6,12 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 
 import static com.chess.engine.pieces.PieceColor.*;
 import static com.chess.engine.utils.Constants.Sizes.TILE_SIZE;
 
-public class Game extends Group {
+public class Game extends StackPane {
 
     private final Board board = new Board();
 
@@ -22,16 +23,19 @@ public class Game extends Group {
     EventHandler<Event> onFinished;
 
     public Game(EventHandler<Event> onFinished) {
+        super();
+        Group root = new Group();
         this.onFinished = onFinished;
         players[0] = new Player(RED);
         players[1] = new Player(BLUE);
         players[2] = new Player(YELLOW);
         players[3] = new Player(GREEN);
-        getChildren().add(board);
-        getChildren().addAll(players[0], players[1], players[2], players[3]);
+        root.getChildren().add(board);
+        root.getChildren().addAll(players);
         players[0].getScoreBoard().highlightScore();
-
-        setOnMouseClicked(this::mouseEvent);
+        root.setOnMouseClicked(this::mouseEvent);
+        getChildren().add(root);
+        getChildren().add(new PromotionUI(BLUE));
     }
 
     private void mouseEvent(MouseEvent mouseEvent) {

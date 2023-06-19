@@ -17,13 +17,13 @@ public abstract class Piece extends Group {
 
     private boolean firstMove = true;
     private boolean transmutation = false;
+    public ImageView pieceTexture;
 
     Piece(PieceType type, PieceColor color, Point point) {
         this.type = type;
         this.color = color;
         this.point = point;
-
-        ImageView pieceTexture = getPieceImage(color, type);
+        pieceTexture = getPieceImage(color, type);
         getChildren().add(pieceTexture);
     }
 
