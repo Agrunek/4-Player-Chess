@@ -56,6 +56,7 @@ public class King extends Piece {
         }
         if (lost) {
             clearPieces(board, pieces);
+            board.getTile(getPoint().getX(),getPoint().getY()).unhighlightTile(board, point.getX(), point.getY());
         }
     }
 
