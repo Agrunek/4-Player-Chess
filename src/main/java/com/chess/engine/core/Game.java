@@ -21,6 +21,7 @@ public class Game extends StackPane {
 
     private Piece piece = null;
     EventHandler<Event> onFinished;
+    private PromotionUI promotion;
 
     public Game(EventHandler<Event> onFinished) {
         super();
@@ -35,7 +36,6 @@ public class Game extends StackPane {
         players[0].getScoreBoard().highlightScore();
         root.setOnMouseClicked(this::mouseEvent);
         getChildren().add(root);
-        getChildren().add(new PromotionUI(BLUE));
     }
 
     private void mouseEvent(MouseEvent mouseEvent) {
@@ -84,6 +84,10 @@ public class Game extends StackPane {
             players[iterator].getScoreBoard().updateScore();
             System.out.println("Player " + players[iterator].getColor().toString() + " score is: " + players[iterator].getScore());
             players[iterator].getScoreBoard().noHighlightScore();
+            if (piece.getPromotion()) {
+                promotion = new PromotionUI(board, piece.getPoint(), piece.getColor(), update -> onPromote());
+                getChildren().add(promotion);
+            }
             updateIterator();
             players[iterator].getScoreBoard().highlightScore();
             piece = null;
@@ -93,6 +97,10 @@ public class Game extends StackPane {
             selectPiece(x, y);
         }
 
+    }
+
+    private void onPromote() {
+        getChildren().remove(promotion);
     }
 
     private void updateIterator() {
