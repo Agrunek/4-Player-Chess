@@ -11,7 +11,7 @@ public class Player extends Group {
 
     public Player(PieceColor color) {
         this.color = color;
-        this.scoreBoard = new ScoreBoard(this);
+        this.scoreBoard = new ScoreBoard(color);
         getChildren().add(scoreBoard);
     }
 
@@ -21,6 +21,7 @@ public class Player extends Group {
 
     public void addScore(int amount) {
         score += amount;
+        scoreBoard.updateScore(score);
     }
 
     public int getScore() {

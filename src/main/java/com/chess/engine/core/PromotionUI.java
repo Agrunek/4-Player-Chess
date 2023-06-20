@@ -1,7 +1,6 @@
 package com.chess.engine.core;
 
 import com.chess.engine.pieces.*;
-import com.chess.engine.utils.Point;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,55 +12,54 @@ import static com.chess.engine.utils.Constants.Sizes.TILE_SIZE;
 
 public class PromotionUI extends HBox {
 
-    private Board board;
-    private Point point;
-    private EventHandler<Event> onPromote;
+    private final Board board;
+    private final Piece piece;
+    private final EventHandler<Event> onPromote;
 
-    public PromotionUI(Board board, Point point, PieceColor color, EventHandler<Event> event) {
+    public PromotionUI(Board board, Piece piece, EventHandler<Event> onPromote) {
+
         super();
-        this.onPromote = event;
+
         this.board = board;
-        this.point = point;
+        this.piece = piece;
+        this.onPromote = onPromote;
+
         setAlignment(Pos.CENTER);
         setMaxHeight(TILE_SIZE * 2);
         setMaxWidth(TILE_SIZE * 5);
         setSpacing(20);
         setBackground(new Background(new BackgroundFill(new Color(0, 0, 0, 0.70), CornerRadii.EMPTY, Insets.EMPTY)));
-        getChildren().add(createBox(PieceType.QUEEN, color));
-        getChildren().add(createBox(PieceType.KNIGHT, color));
-        getChildren().add(createBox(PieceType.BISHOP, color));
-        getChildren().add(createBox(PieceType.ROOK, color));
+
+        getChildren().add(createBox(PieceType.QUEEN));
+        getChildren().add(createBox(PieceType.KNIGHT));
+        getChildren().add(createBox(PieceType.BISHOP));
+        getChildren().add(createBox(PieceType.ROOK));
     }
 
+    private StackPane createBox(PieceType type) {
 
-    private StackPane createBox(PieceType type, PieceColor color) {
-        StackPane temp = new StackPane();
-        switch (type) {
-            case KNIGHT -> temp.getChildren().add(new Knight(color, 0, 0));
-            case QUEEN -> temp.getChildren().add(new Queen(color, 0, 0));
-            case BISHOP -> temp.getChildren().add(new Bishop(color, 0, 0));
-            case ROOK -> temp.getChildren().add(new Rook(color, 0, 0));
-        }
-        temp.setOnMouseClicked((e) -> promote(type, color));
+        StackPane box = new StackPane();
 
-        return temp;
+        Piece selectPiece = switch (type) {
+            case QUEEN -> new Queen(piece.getColor(), piece.getPoint().getX(), piece.getPoint().getY());
+            case KNIGHT -> new Knight(piece.getColor(), piece.getPoint().getX(), piece.getPoint().getY());
+            case BISHOP -> new Bishop(piece.getColor(), piece.getPoint().getX(), piece.getPoint().getY());
+            case ROOK -> new Rook(piece.getColor(), piece.getPoint().getX(), piece.getPoint().getY());
+            default -> null;
+        };
+
+        box.getChildren().add(selectPiece);
+        box.setOnMouseClicked(e -> promote(selectPiece));
+
+        return box;
     }
 
-    private void promote(PieceType type, PieceColor color) {
-        board.getPieces().remove(board.getTile(point.getX(), point.getY()).getPiece());
-        board.getChildren().remove(board.getTile(point.getX(), point.getY()).getPiece());
-        board.getTile(point.getX(), point.getY()).setPiece(null);
-        Piece piece = null;
-        switch (type) {
-            case KNIGHT -> piece = new Knight(color, point.getX(), point.getY());
-            case QUEEN -> piece = new Queen(color, point.getX(), point.getY());
-            case BISHOP -> piece = new Bishop(color, point.getX(), point.getY());
-            case ROOK -> piece = new Rook(color, point.getX(), point.getY());
-        }
-        board.getTile(point.getX(), point.getY()).setPiece(piece);
-        board.getPieces().add(piece);
+    private void promote(Piece selectedPiece) {
+
+        board.getPieces().remove(piece);
+        board.getPieces().add(selectedPiece);
+        board.getTile(piece.getPoint().getX(), piece.getPoint().getY()).setPiece(selectedPiece);
+        board.getKings().values().forEach(e -> e.updateStates(board));
         onPromote.handle(null);
     }
-
-
 }
