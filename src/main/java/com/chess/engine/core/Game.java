@@ -84,7 +84,7 @@ public class Game extends StackPane {
             players[iterator].getScoreBoard().updateScore();
             System.out.println("Player " + players[iterator].getColor().toString() + " score is: " + players[iterator].getScore());
             players[iterator].getScoreBoard().noHighlightScore();
-            if (piece.getPromotion()) {
+            if (piece.isPromotion()) {
                 promotion = new PromotionUI(board, piece.getPoint(), piece.getColor(), update -> onPromote());
                 getChildren().add(promotion);
             }

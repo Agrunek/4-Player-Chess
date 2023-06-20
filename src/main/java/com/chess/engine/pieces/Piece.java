@@ -17,13 +17,12 @@ public abstract class Piece extends Group {
 
     private boolean firstMove = true;
     private boolean promotion = false;
-    public ImageView pieceTexture;
 
     Piece(PieceType type, PieceColor color, Point point) {
         this.type = type;
         this.color = color;
         this.point = point;
-        pieceTexture = getPieceImage(color, type);
+        ImageView pieceTexture = getPieceImage(color, type);
         getChildren().add(pieceTexture);
     }
 
@@ -55,6 +54,14 @@ public abstract class Piece extends Group {
         return target;
     }
 
+    public void useFirstMove() {
+        firstMove = false;
+    }
+
+    public void usePromotion() {
+        promotion = true;
+    }
+
     public PieceType getType() {
         return type;
     }
@@ -71,15 +78,7 @@ public abstract class Piece extends Group {
         return firstMove;
     }
 
-    public void useFirstMove() {
-        firstMove = false;
-    }
-
-    public void usePromotion() {
-        promotion = true;
-    }
-
-    public boolean getPromotion() {
+    public boolean isPromotion() {
         return promotion;
     }
 }
