@@ -59,18 +59,18 @@ public class HomePage extends StackPane {
         ImageView bg = new ImageView(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         switch (text) {
             case "PLAY" -> {
-                button.setOnMouseEntered((e) -> buttonHover(e, bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(e, bg, label));
+                button.setOnMouseEntered((e) -> buttonHover(bg, label));
+                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
             }
 
             case "CREDITS" -> {
-                button.setOnMouseEntered((e) -> buttonHover(e, bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(e, bg, label));
+                button.setOnMouseEntered((e) -> buttonHover(bg, label));
+                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
                 button.setOnMouseClicked(this::credits);
             }
             case "EXIT" -> {
-                button.setOnMouseEntered((e) -> buttonHover(e, bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(e, bg, label));
+                button.setOnMouseEntered((e) -> buttonHover(bg, label));
+                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
                 button.setOnMouseClicked((e) -> System.exit(0));
             }
         }
@@ -85,12 +85,12 @@ public class HomePage extends StackPane {
         host.showDocument(GITHUB_PATH);
     }
 
-    private void buttonHover(MouseEvent e, ImageView background, Label text) {
+    private void buttonHover(ImageView background, Label text) {
         background.setImage(new Image(BUTTON_HOVER_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         text.setTextFill(Color.valueOf(FONT_HOVER_COLOR));
     }
 
-    private void buttonExitHover(MouseEvent e, ImageView background, Label text) {
+    private void buttonExitHover(ImageView background, Label text) {
         background.setImage(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         text.setTextFill(Color.valueOf(FONT_COLOR));
     }

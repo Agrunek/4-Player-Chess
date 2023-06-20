@@ -56,12 +56,12 @@ public class EndingScreen extends StackPane {
 
         switch (text) {
             case "PLAY AGAIN" -> {
-                button.setOnMouseEntered((e) -> buttonHover(e, bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(e, bg, label));
+                button.setOnMouseEntered((e) -> buttonHover(bg, label));
+                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
             }
             case "EXIT" -> {
-                button.setOnMouseEntered((e) -> buttonHover(e, bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(e, bg, label));
+                button.setOnMouseEntered((e) -> buttonHover(bg, label));
+                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
                 button.setOnMouseClicked((e) -> System.exit(0));
             }
         }
@@ -78,12 +78,12 @@ public class EndingScreen extends StackPane {
         title.getChildren().add(name);
     }
 
-    private void buttonHover(MouseEvent e, ImageView background, Label text) {
+    private void buttonHover(ImageView background, Label text) {
         background.setImage(new Image(BUTTON_HOVER_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         text.setTextFill(Color.valueOf(FONT_HOVER_COLOR));
     }
 
-    private void buttonExitHover(MouseEvent e, ImageView background, Label text) {
+    private void buttonExitHover(ImageView background, Label text) {
         background.setImage(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         text.setTextFill(Color.valueOf(FONT_COLOR));
     }
