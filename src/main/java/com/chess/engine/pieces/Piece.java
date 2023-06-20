@@ -43,6 +43,7 @@ public abstract class Piece extends Group {
 
         board.getTile(x, y).setPiece(this);
         board.getTile(point.getX(), point.getY()).setPiece(null);
+        board.getTile(point.getX(), point.getY()).setChecked(false);
 
         point.setX(x);
         point.setY(y);
