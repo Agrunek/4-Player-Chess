@@ -1,11 +1,12 @@
 package com.chess.engine.core;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,64 +19,72 @@ import static com.chess.engine.utils.Constants.Sizes.*;
 import static com.chess.engine.utils.Constants.Textures.*;
 
 public class EndingScreen extends StackPane {
+
     private final StackPane title = new StackPane();
     private final HBox buttons = new HBox();
-    private final Label name;
 
-    private final StackPane playAgainButton = new StackPane();
-    private final StackPane exitButton = new StackPane();
+    private final Player winner;
 
-    public EndingScreen(Player winner) {
-        name = new Label("Player " + winner.getColor().toString() + " wins!");
+    private final EventHandler<Event> onRestart;
+
+    public EndingScreen(Player winner, EventHandler<Event> onRestart) {
+
+        this.winner = winner;
+        this.onRestart = onRestart;
+
         createTitle();
         createButtons();
 
         VBox menuContent = new VBox();
-        menuContent.getChildren().addAll(title, buttons);
-        menuContent.setSpacing(40);
         menuContent.setAlignment(Pos.CENTER);
+        menuContent.setSpacing(40);
+        menuContent.getChildren().addAll(title, buttons);
+
         ImageView background = new ImageView(new Image(BACKGROUND_TEXTURE_PATH, HOME_PAGE_WIDTH, HOME_PAGE_HEIGHT, true, false));
         getChildren().addAll(background, menuContent);
     }
 
+    private void createTitle() {
+
+        Label announcement = new Label("Player " + winner.getColor().toString() + " wins!");
+        Font customFont = Font.loadFont(new File(FONT_PATH).toURI().toString(), HOME_PAGE_HEIGHT / 8);
+        announcement.setFont(customFont);
+
+        announcement.setTextFill(Color.BLACK);
+        announcement.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        title.getChildren().add(announcement);
+    }
+
     private void createButtons() {
+
+        StackPane playAgainButton = new StackPane();
+        StackPane exitButton = new StackPane();
+
         setButton(playAgainButton, "PLAY AGAIN");
         setButton(exitButton, "EXIT");
+
+        playAgainButton.setOnMouseClicked(e -> onRestart.handle(null));
+        exitButton.setOnMouseClicked(e -> System.exit(0));
+
         buttons.setAlignment(Pos.CENTER);
-        buttons.setSpacing(30);
+        buttons.setSpacing(20);
         buttons.getChildren().addAll(playAgainButton, exitButton);
     }
 
     private void setButton(StackPane button, String text) {
-        Label label = new Label();
-        label.setText(text);
+
+        Label label = new Label(text);
         label.setTextFill(Color.valueOf(FONT_COLOR));
+
         Font customFont = Font.loadFont(new File(FONT_PATH).toURI().toString(), 32);
         label.setFont(customFont);
-        ImageView bg = new ImageView(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
 
-        switch (text) {
-            case "PLAY AGAIN" -> {
-                button.setOnMouseEntered((e) -> buttonHover(bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
-            }
-            case "EXIT" -> {
-                button.setOnMouseEntered((e) -> buttonHover(bg, label));
-                button.setOnMouseExited((e) -> buttonExitHover(bg, label));
-                button.setOnMouseClicked((e) -> System.exit(0));
-            }
-        }
-        button.getChildren().addAll(bg, label);
-    }
+        ImageView background = new ImageView(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
+        button.setOnMouseEntered(e -> buttonHover(background, label));
+        button.setOnMouseExited(e -> buttonExitHover(background, label));
 
-    private void createTitle() {
-        name.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        Font customFont = Font.loadFont(new File(FONT_PATH).toURI().toString(), HOME_PAGE_HEIGHT / 8);
-        name.setFont(customFont);
-        name.setTextFill(Color.BLACK);
-
-        title.getChildren().add(name);
+        button.getChildren().addAll(background, label);
     }
 
     private void buttonHover(ImageView background, Label text) {
@@ -86,9 +95,5 @@ public class EndingScreen extends StackPane {
     private void buttonExitHover(ImageView background, Label text) {
         background.setImage(new Image(BUTTON_TEXTURE_PATH, BUTTON_WIDTH, BUTTON_HEIGHT, true, false));
         text.setTextFill(Color.valueOf(FONT_COLOR));
-    }
-
-    public StackPane getPlayAgainButton() {
-        return this.playAgainButton;
     }
 }

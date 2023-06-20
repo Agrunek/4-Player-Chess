@@ -7,45 +7,28 @@ import static com.chess.engine.utils.Constants.Colors.*;
 
 public enum PieceColor {
 
-    RED(RED_PLAYER),
-    BLUE(BLUE_PLAYER),
-    YELLOW(YELLOW_PLAYER),
-    GREEN(GREEN_PLAYER);
+    RED(RED_PLAYER, Color.WHITE, RED_PLAYER_HIGHLIGHT),
+    BLUE(BLUE_PLAYER, Color.WHITE, BLUE_PLAYER_HIGHLIGHT),
+    YELLOW(YELLOW_PLAYER, Color.BLACK, YELLOW_PLAYER_HIGHLIGHT),
+    GREEN(GREEN_PLAYER, Color.BLACK, GREEN_PLAYER_HIGHLIGHT);
 
     private final Color color;
     private final Color textColor;
-    private Color highlightColor;
+    private final Color highlightColor;
 
-    PieceColor(Color color) {
+    PieceColor(Color color, Color textColor, Color highlightColor) {
         this.color = color;
-        if (color == BLUE_PLAYER || color == RED_PLAYER) {
-            this.textColor = Color.WHITE;
-        } else {
-            this.textColor = Color.BLACK;
-        }
-        if (color == BLUE_PLAYER) {
-            highlightColor = BLUE_PLAYER_HIGHLIGHT;
-        }
-        if (color == RED_PLAYER) {
-            highlightColor = RED_PLAYER_HIGHLIGHT;
-
-        }
-        if (color == GREEN_PLAYER) {
-            highlightColor = GREEN_PLAYER_HIGHLIGHT;
-
-        }
-        if (color == YELLOW_PLAYER) {
-            highlightColor = YELLOW_PLAYER_HIGHLIGHT;
-        }
-    }
-
-    public Color getColor() {
-        return color;
+        this.textColor = textColor;
+        this.highlightColor = highlightColor;
     }
 
     @Override
     public String toString() {
         return name().toLowerCase();
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public Paint getTextColor() {

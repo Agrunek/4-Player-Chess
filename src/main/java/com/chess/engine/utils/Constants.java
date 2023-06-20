@@ -7,13 +7,13 @@ import javafx.stage.Screen;
 public class Constants {
 
     public static class Colors {
+
         public static final String BACKGROUND_COLOR = "#1E1E1E";
 
         public static final Color RED_PLAYER = Color.valueOf("#E71B1E");
         public static final Color BLUE_PLAYER = Color.valueOf("#39ABE2");
         public static final Color GREEN_PLAYER = Color.valueOf("#4D8D48");
         public static final Color YELLOW_PLAYER = Color.valueOf("#FFFF9A");
-
 
         public static final Color RED_PLAYER_HIGHLIGHT = Color.valueOf("#EAA55A");
         public static final Color BLUE_PLAYER_HIGHLIGHT = Color.valueOf("#312B33");
@@ -33,7 +33,6 @@ public class Constants {
 
         public static final double FIGURE_SIZE = TILE_SIZE * 0.90;
 
-
         public static final double HOME_PAGE_HEIGHT = MONITOR_HEIGHT / 2;
         public static final double HOME_PAGE_WIDTH = MONITOR_WIDTH / 2;
 
@@ -47,10 +46,11 @@ public class Constants {
 
         public static final String ROOT_PATH = "file:src/main/java/com/chess/gui/";
         public static final String FONT_PATH = "src/main/java/com/chess/gui/mcFont.otf";
-        public static final String BACKGROUND_TEXTURE_PATH = "file:src/main/java/com/chess/gui/wood.png";
-        public static final String BUTTON_TEXTURE_PATH = "file:src/main/java/com/chess/gui/button.png";
-        public static final String BUTTON_HOVER_TEXTURE_PATH = "file:src/main/java/com/chess/gui/buttonHover.png";
-
+        public static final String BACKGROUND_TEXTURE_PATH = ROOT_PATH + "wood.png";
+        public static final String BUTTON_TEXTURE_PATH = ROOT_PATH + "button.png";
+        public static final String BUTTON_HOVER_TEXTURE_PATH = ROOT_PATH + "buttonHover.png";
+        public static final String TILE_CHECKED = ROOT_PATH + "tile_check.png";
+        public static final String TILE_CHECKED_HIGHLIGHTED = ROOT_PATH + "tile_check_highlight.png";
     }
 
     public static class Paths {
