@@ -50,6 +50,12 @@ public abstract class Piece extends Group {
 
         useFirstMove();
 
+        if (target != null) {
+            if (target.type == PieceType.KING) {
+                board.getKings().get(target.color).forceLose(board);
+            }
+        }
+
         board.getKings().values().forEach(e -> e.updateStates(board));
 
         return target;
