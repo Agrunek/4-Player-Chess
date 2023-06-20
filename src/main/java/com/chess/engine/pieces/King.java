@@ -132,16 +132,19 @@ public class King extends Piece {
         int checkY1 = (yDiff == 0) ? y : point.getY() + ((yDiff > 0) ? 1 : -1);
         int checkY2 = (yDiff == 0) ? y : point.getY() + ((yDiff > 0) ? 2 : -2);
 
-        if (board.getPieces().stream().filter(e -> e.getColor() != color)
-                .anyMatch(e -> e.validate(board, checkX1, checkY1) || e.validate(board, checkX2, checkY2))) {
+        if (board.getPieces().stream().filter(e -> e.getColor() != color).anyMatch(e -> e.validate(board, checkX1, checkY1) || e.validate(board, checkX2, checkY2))) {
             return false;
         }
 
         return interruptValidate(board, this, x, y);
     }
 
-    public boolean isInCheck() {
-        return inCheck;
+    public void forceLose(Board board) {
+        lost = true;
+        List<Piece> pieces = board.getPieces().stream().filter(e -> e.getColor() == color).toList();
+        clearPieces(board, pieces);
+        board.getTile(point.getX(), point.getY()).setChecked(false);
+        board.getKings().values().forEach(e -> e.updateStates(board));
     }
 
     public boolean hasLost() {
