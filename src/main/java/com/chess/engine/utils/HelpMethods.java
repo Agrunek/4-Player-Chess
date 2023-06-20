@@ -10,7 +10,9 @@ import static com.chess.engine.pieces.PieceColor.*;
 import static com.chess.engine.pieces.PieceType.*;
 import static com.chess.engine.utils.Constants.Sizes.FIGURE_SIZE;
 import static com.chess.engine.utils.Constants.Sizes.TILE_SIZE;
-import static com.chess.engine.utils.Constants.Textures.*;
+import static com.chess.engine.utils.Constants.Textures.ROOT_PATH;
+import static com.chess.engine.utils.Constants.Textures.TILE_CHECKED;
+import static com.chess.engine.utils.Constants.Textures.TILE_CHECKED_HIGHLIGHTED;
 
 public class HelpMethods {
 
