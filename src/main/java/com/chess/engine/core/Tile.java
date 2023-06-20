@@ -54,9 +54,8 @@ public class Tile extends StackPane {
         background = picked ? getTileImageHighlight(point.getX(), point.getY(), checked) : getTileImage(point.getX(), point.getY(), checked);
 
         getChildren().add(background);
-        getChildren().remove(tempBackground);
-        setPiece(null);
         setPiece(tempPiece);
+        getChildren().remove(tempBackground);
     }
 
     public void setPicked(boolean picked) {
