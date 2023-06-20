@@ -1,24 +1,29 @@
 package com.chess.engine.core;
 
-import com.chess.engine.pieces.King;
 import com.chess.engine.pieces.Piece;
-import javafx.scene.image.Image;
+import com.chess.engine.utils.Point;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 import static com.chess.engine.utils.Constants.Sizes.TILE_SIZE;
-import static com.chess.engine.utils.Constants.Textures.ROOT_PATH;
 import static com.chess.engine.utils.HelpMethods.ImageManagement.getTileImage;
-import static com.chess.engine.utils.HelpMethods.ImageManagement.getTileImageHighilight;
+import static com.chess.engine.utils.HelpMethods.ImageManagement.getTileImageHighlight;
 
 public class Tile extends StackPane {
 
+    private final Point point;
     private Piece piece;
 
+    private ImageView background;
+
+    private boolean picked = false;
+    private boolean checked = false;
+
     public Tile(int x, int y) {
+        point = new Point(x, y);
         relocate(x * TILE_SIZE, y * TILE_SIZE);
-        ImageView tileBackground = getTileImage(x, y);
-        getChildren().add(tileBackground);
+        background = getTileImage(x, y, false);
+        getChildren().add(background);
     }
 
     public boolean hasPiece() {
@@ -41,39 +46,26 @@ public class Tile extends StackPane {
 
         this.piece = piece;
     }
-    public void highlightTile(Board board, int x, int y){
-        if(piece != null) {
-            King king = board.getKings().values().stream().filter(k -> k.getPoint().equals(piece.getPoint())).findFirst().orElse(null);
-            if (king != null && king.isInCheck()) {
-                System.out.println("king picked and checked");
-                getChildren().add(new ImageView(new Image(ROOT_PATH + "tile_check_highlight.png", TILE_SIZE, TILE_SIZE, true, false)));
-                setPiece(piece);
-                return;
-            }
-        }
-        getChildren().add(getTileImageHighilight(x, y));
-        if (piece != null) setPiece(piece);
 
+    private void updateVisuals() {
+
+        Piece tempPiece = piece;
+        ImageView tempBackground = background;
+        background = picked ? getTileImageHighlight(point.getX(), point.getY(), checked) : getTileImage(point.getX(), point.getY(), checked);
+
+        getChildren().add(background);
+        getChildren().remove(tempBackground);
+        setPiece(null);
+        setPiece(tempPiece);
     }
 
-    public void unhighlightTile(Board board, int x, int y){
-        if(piece != null) {
-            King king = board.getKings().values().stream().filter(k -> k.getPoint().equals(piece.getPoint())).findFirst().orElse(null);
-            if (king != null && king.isInCheck()) {
-                getChildren().add(new ImageView(new Image(ROOT_PATH + "tile_check.png", TILE_SIZE, TILE_SIZE, true, false)));
-                setPiece(piece);
-                return;
-            }
-        }
-        getChildren().add(getTileImage(x, y));
-        if (piece != null) setPiece(piece);
-
+    public void setPicked(boolean picked) {
+        this.picked = picked;
+        updateVisuals();
     }
 
-    public void checkTile(){
-        getChildren().add(new ImageView(new Image(ROOT_PATH + "tile_check.png", TILE_SIZE, TILE_SIZE, true, false)));
-        if(piece != null)setPiece(piece);
-
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+        updateVisuals();
     }
-
 }

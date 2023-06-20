@@ -68,7 +68,7 @@ public class Game extends StackPane {
         if (selected.getColor() != players[iterator].getColor()) {
             return;
         }
-        board.getTile(x, y).highlightTile(board, x, y);
+        board.getTile(x, y).setPicked(true);
         piece = selected;
     }
 
@@ -76,7 +76,7 @@ public class Game extends StackPane {
         int oldx = piece.getPoint().getX();
         int oldy = piece.getPoint().getY();
         try {
-            board.getTile(oldx, oldy).unhighlightTile(board, oldx, oldy);
+            board.getTile(oldx, oldy).setPicked(false);
             Piece popped = board.move(piece, x, y);
             if (popped != null) {
                 players[iterator].addScore(popped.getType().getValue());
@@ -91,7 +91,7 @@ public class Game extends StackPane {
             updateIterator();
             players[iterator].getScoreBoard().highlightScore();
             piece = null;
-            board.getTile(oldx, oldy).unhighlightTile(board, oldx, oldy);
+            board.getTile(oldx, oldy).setPicked(false);
         } catch (IllegalMoveException e) {
             System.out.println("ILLEGAL MOVE!");
             selectPiece(x, y);

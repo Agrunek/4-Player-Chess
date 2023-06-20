@@ -50,6 +50,8 @@ public class Constants {
         public static final String BACKGROUND_TEXTURE_PATH = "file:src/main/java/com/chess/gui/wood.png";
         public static final String BUTTON_TEXTURE_PATH = "file:src/main/java/com/chess/gui/button.png";
         public static final String BUTTON_HOVER_TEXTURE_PATH = "file:src/main/java/com/chess/gui/buttonHover.png";
+        public static final String TILE_CHECKED = ROOT_PATH + "tile_check.png";
+        public static final String TILE_CHECKED_HIGHLIGHTED = ROOT_PATH + "tile_check_highlight.png";
 
     }
 

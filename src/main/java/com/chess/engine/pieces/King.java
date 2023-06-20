@@ -32,31 +32,21 @@ public class King extends Piece {
         return (deltaX <= 1 && deltaY <= 1);
     }
 
-    public boolean isInCheck() {
-        return inCheck;
-    }
-
-    public boolean hasLost() {
-        return lost;
-    }
-
     public void updateStates(Board board) {
 
-        inCheck = board.getPieces().stream().anyMatch(e -> e.validate(board, point.getX(), point.getY()));
+        inCheck = !lost && board.getPieces().stream().anyMatch(e -> e.validate(board, point.getX(), point.getY()));
 
         List<Piece> pieces = board.getPieces().stream().filter(e -> e.getColor() == color).toList();
 
-        lost = !anyMovesLeft(board, pieces);
-
-        if(inCheck && !lost){
-            board.getTile(getPoint().getX(),getPoint().getY()).checkTile();
-        }
-        if(!inCheck && !lost){
-            board.getTile(getPoint().getX(),getPoint().getY()).unhighlightTile(board, point.getX(), point.getY());
-        }
-        if (lost) {
-            clearPieces(board, pieces);
-            board.getTile(getPoint().getX(),getPoint().getY()).unhighlightTile(board, point.getX(), point.getY());
+        if (!anyMovesLeft(board, pieces)) {
+            if (!lost) {
+                lost = true;
+                clearPieces(board, pieces);
+                board.getTile(point.getX(), point.getY()).setChecked(false);
+                board.getKings().values().forEach(e -> e.updateStates(board));
+            }
+        } else {
+            board.getTile(point.getX(), point.getY()).setChecked(inCheck);
         }
     }
 
@@ -148,5 +138,13 @@ public class King extends Piece {
         }
 
         return interruptValidate(board, this, x, y);
+    }
+
+    public boolean isInCheck() {
+        return inCheck;
+    }
+
+    public boolean hasLost() {
+        return lost;
     }
 }
